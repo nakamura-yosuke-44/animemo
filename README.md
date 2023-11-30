@@ -68,3 +68,6 @@
 
 ## 画面遷移図  
 figma: https://www.figma.com/file/UEFAMPCUrDEhpc34Q9cOTt/%E3%81%93%E3%81%A9%E3%81%90%E3%82%8B%E3%82%B5%E3%83%BC%E3%83%81?type=design&node-id=5%3A22&mode=design&t=uDMcIzzKwSZpeMme-1
+
+## ER図
+![](er.svg)
