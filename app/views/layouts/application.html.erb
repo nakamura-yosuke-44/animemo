@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Kodoguru</title>
+    <title>KodoguruSearch</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "all" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="flex flex-col min-h-screen">
+    <header class="h-14 bg-blue-500"></header>
+    <div class="grow flex flex-col bg-amber-500">
+      <%= yield %>
+    </div>
+    <footer class="h-14 bg-red-500"></footer>
   </body>
 </html>
