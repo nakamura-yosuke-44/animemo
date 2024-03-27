@@ -11,10 +11,10 @@
   </head>
 
   <body class="flex flex-col min-h-screen">
-    <header class="h-14 bg-blue-500"></header>
-    <div class="grow flex flex-col bg-amber-500">
+    <%= render 'shared/before_login_header' %>
+    <div class="grow flex flex-col bg-[#fff1cf]">
       <%= yield %>
     </div>
-    <footer class="h-14 bg-red-500"></footer>
+    <%= render 'shared/footer' %>
   </body>
 </html>
