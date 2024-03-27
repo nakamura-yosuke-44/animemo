@@ -74,6 +74,14 @@ Style/SymbolArray:
 Style/WordArray:
   Enabled: false
 
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Style/PercentLiteralDelimiters:
+  Exclude:
+    - 'config/application.rb'
+
 # 変数名に数字を許可
 Naming/VariableNumber:
   Enabled: false
@@ -127,3 +135,4 @@ Style/Lambda:
 
 RSpec/NestedGroups:
   Max: 4
+
