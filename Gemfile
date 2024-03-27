@@ -53,6 +53,10 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.10', '>= 3.10.1'
   gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
+  gem 'rubocop', '~> 1.62', '>= 1.62.1', require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development do

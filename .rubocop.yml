@@ -1,0 +1,129 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  SuggestExtensions: false
+  # 最新のルールを適用する
+  NewCops: enable
+  # 何のルールに引っかかったか表示する
+  DisplayCopNames: true
+  # rubocop対象外
+  Exclude:
+    - "Gemfile"
+    - "bin/**/*"
+    - "db/**/*"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "lib/tasks/auto_annotate_models.rake"
+    - "config/environments/*"
+    - "config/puma.rb"
+    - "spec/requests/*"
+    - "spec/helpers/*"
+    - "spec/models/*"
+    - "spec/controllers/*"
+
+### ルールのカスタマイズ
+
+# 設定が厳しいので一旦全てfalseにする
+Metrics:
+  Enabled: false
+
+# 一行あたりの文字数
+Layout/LineLength:
+  Enabled: false
+
+# メソッドの改行ルール
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# 日本語にコメントを許可
+Style/AsciiComments:
+  Enabled: false
+
+# クラスにコメントを残さなくても良い
+Style/Documentation:
+  Enabled: false
+
+# コントローラ等のモジュールをネストしての宣言
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# 文字列のfreeze（Ruby3からは自動でfreezeされるので不要）
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# ガード節の提案（一旦false）
+Style/GuardClause:
+  Enabled: false
+
+# 文字列のダブルクォートチェック
+Style/StringLiterals:
+  Enabled: false
+
+# シンボルによる配列の%記法のチェック
+Style/SymbolArray:
+  Enabled: false
+  # EnforcedStyle: brackets
+
+# 文字列による配列の%記法のチェック
+Style/WordArray:
+  Enabled: false
+
+# 変数名に数字を許可
+Naming/VariableNumber:
+  Enabled: false
+
+# = と == の指摘
+Lint/AssignmentInCondition:
+  Enabled: false
+
+# メソッド名等の命名の指摘
+Naming/PredicateName:
+  Enabled: false
+
+# 未i18nのチェック
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+# before_actionの際の未定義メソッドのチェック
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+# rspecのcontextのブロックの説明が、when,with,withoutで始まっているかチェックする
+RSpec/ContextWording:
+  Enabled: false
+
+# 一つのテストケースの最大行数
+RSpec/ExampleLength:
+  Max: 17
+
+# 一つのテストケースが持つexpectの最大数
+RSpec/MultipleExpectations:
+  Max: 8
+
+# findではなくfind_by_idの使用を推奨 findを使うのでfalse
+Capybara/SpecificFinders:
+  Enabled: false
+
+# expect(page).to have_current_path('/expected_path')の形式 expect(current_path).to eq()を採用するのでfalse
+Capybara/CurrentPathExpectation:
+  Enabled: false
+
+# expect(...).to have_no_***の形式　not_toを採用するのでfalse
+Capybara/NegationMatcher:
+  Enabled: false
+
+# visibleではなくhiddenまたはallを使用する　今回はvisibleを採用するのでfalse
+Capybara/VisibilityMatcher:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
