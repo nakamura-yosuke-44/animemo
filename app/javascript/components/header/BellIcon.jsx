@@ -1,7 +1,7 @@
-import React from "react";
-import { FaRegBell } from "react-icons/fa";
+import React from 'react';
+import { FaRegBell } from 'react-icons/fa';
 
-function BellIcon () {
+function BellIcon() {
   return <FaRegBell />;
 }
 
