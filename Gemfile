@@ -78,4 +78,5 @@ group :test do
 end
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
+gem 'devise-i18n', '~> 1.12'
 gem 'config', '~> 5.4'
