@@ -29,6 +29,11 @@
         <div><%= f.label :password_confirmation %></div>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "border border-[#0d0015] pl-2" %>
       </div>
+      
+      <div class="flex">
+        <%= f.check_box :agreement_terms, :as => :boolean, checked:false, class: "checkbox_check" %>
+        <a href="#">利用規約</a>と<a href="#">プライバシーポリシー</a>に同意
+      </div>
     
       <div class="text-center">
         <div class="field mb-2 actions btn btn-xs bg-black text-white">

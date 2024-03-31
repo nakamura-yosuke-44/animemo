@@ -28,6 +28,7 @@ ja:
         name: 名前
         role: 権限
         id: ID
+        agreement_terms: 利用規約とプライバシーポリシー
     models:
       user: ユーザー
   devise:
@@ -55,7 +56,7 @@ ja:
       confirmation_instructions:
         action: メールアドレスの確認
         greeting: "こんにちは、%{recipient}様"
-        instruction: 以下のリンクをクリックし、メールアドレスの確認手続を完了させてください。
+        instruction: 以下のリンクをクリックし、メールアドレスの確認手続を完了させてください。期限は24時間です。
         subject: メールアドレスの確認
       email_changed:
         greeting: こんにちは、%{recipient}様。
@@ -141,8 +142,9 @@ ja:
       unlocked: アカウントをロック解除しました。
   errors:
     messages:
+      accepted: に同意してください。
       already_confirmed: は既に登録済みです。ログインしてください。
-      confirmation_period_expired: の期限が切れました。%{period} までに確認する必要があります。 新しくリクエストしてください。
+      confirmation_period_expired: の認証期限が切れています。新しくリクエストしてください。
       expired: の有効期限が切れました。新しくリクエストしてください。
       not_found: は見つかりませんでした。
       not_locked: はロックされていません。
