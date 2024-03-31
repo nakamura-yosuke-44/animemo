@@ -1,0 +1,26 @@
+<div class="flex-grow flex flex-col items-center justify-center">
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <br>
+    <div class="flex flex-col items-center justify-center">
+        <% if resource.try(:confirmed_at?) %>
+          <%= link_to 'ログイン', new_user_session_path, class: "text-lg px-8 hover:text-gray-500" %>
+        <% else %>
+          <div class="text-2xl font-bold">
+            <%= t('.resend_confirmation_instructions') %>
+          </div>
+          <div class="field mb-2">
+            <div>
+              <%= f.label :email %>
+            </div>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "border border-[#0d0015] pl-2" %>
+          </div>
+          <div class="text-center">
+            <div class="field mb-2 actions btn btn-xs bg-black text-white">
+              <%= f.submit t('.resend') %>
+            </div>
+          </div>
+        <% end %>
+    </div>
+  <% end %>
+</div>

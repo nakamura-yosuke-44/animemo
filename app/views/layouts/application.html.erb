@@ -7,11 +7,12 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "all" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true, type: "module" %>
   </head>
 
   <body class="flex flex-col min-h-screen">
     <%= render 'shared/before_login_header' %>
+    <%= render 'shared/flash_message' %>  
     <div class="grow flex flex-col bg-[#fff1cf]">
       <%= yield %>
     </div>

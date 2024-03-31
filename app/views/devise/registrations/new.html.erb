@@ -1,0 +1,46 @@
+<div class="flex-grow flex flex-col items-center justify-center">
+  <div class="text-2xl font-bold"><%= t('.sign_up') %></div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="flex flex-col items-center justify-center">
+      <div class="field mb-2">
+        <div>
+          <%= f.label :name %>
+        </div>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "border border-[#0d0015] pl-2" %>
+      </div>
+    
+      <div class="field mb-2">
+        <div><%= f.label :email %></div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "border border-[#0d0015] pl-2" %>
+      </div>
+    
+      <div class="field mb-2">
+        <div>
+          <%= f.label :password do %>
+            <%= User.human_attribute_name(:password) %> 
+            <%= t('devise.defaults.characters_minimum', count: @minimum_password_length) %>
+          <% end %>
+        </div>
+        <%= f.password_field :password, autocomplete: "new-password", class: "border border-[#0d0015] pl-2" %>
+      </div>
+    
+      <div class="field mb-2">
+        <div><%= f.label :password_confirmation %></div>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "border border-[#0d0015] pl-2" %>
+      </div>
+      
+      <div class="flex">
+        <%= f.check_box :agreement_terms, :as => :boolean, checked:false, class: "checkbox_check" %>
+        <a href="#">利用規約</a>と<a href="#">プライバシーポリシー</a>に同意
+      </div>
+    
+      <div class="text-center">
+        <div class="field mb-2 actions btn btn-xs bg-black text-white">
+          <%= f.submit t('.registration') %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+

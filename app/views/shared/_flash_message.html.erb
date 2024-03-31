@@ -1,0 +1,6 @@
+<% flash.each do |message_type, message| %>
+  <% next if message_type == 'timedout' %>
+  <div class="<%= flash_background_color(message_type) %> px-4 py-2 text-white" id="flash">
+    <%= message %>
+  </div>
+<% end %>
