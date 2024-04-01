@@ -63,6 +63,14 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.include Devise::Test::IntegrationHelpers, type: :system
   config.include FactoryBot::Syntax::Methods
   config.include UserRegistrationSupport
+  config.include LoginSupport
+
+  config.before do
+    ActionMailer::Base.deliveries.clear
+  end
+
+  config.include ActiveSupport::Testing::TimeHelpers
 end
