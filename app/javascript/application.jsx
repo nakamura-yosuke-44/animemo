@@ -35,3 +35,5 @@ document.addEventListener('turbo:load', async () => {
 
 mountIcon('menu-icon', MenuIcon);
 mountIcon('notification', BellIcon);
+
+export default mountIcon;
