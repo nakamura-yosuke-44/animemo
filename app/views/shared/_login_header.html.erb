@@ -25,10 +25,10 @@
     <% end %>
   </div>
   <div class="justify-end text-white">
-    <span>こんにちは、○○○さん</span>
+    <span>こんにちは、<%= current_user.name %>さん</span>
     <span id="notification" class="px-1"></span>
   </div>
   <div class="justify-end text-white px-8 hover:text-slate-300">
-    <%= link_to("ログアウト", "#", data: {turbo_method: :delete, turbo_confirm: "ログアウトしますか？"} ) %>
+    <%= link_to "ログアウト", destroy_user_session_path , data: {turbo_method: :delete, turbo_confirm: "ログアウトしますか？"} %>
   </div>
 </header>

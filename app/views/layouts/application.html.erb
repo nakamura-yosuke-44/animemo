@@ -11,7 +11,11 @@
   </head>
 
   <body class="flex flex-col min-h-screen">
-    <%= render 'shared/before_login_header' %>
+    <% if user_signed_in? %>
+      <%= render 'shared/login_header' %>
+    <% else %>
+      <%= render 'shared/before_login_header' %>
+    <% end %>
     <%= render 'shared/flash_message' %>  
     <div class="grow flex flex-col bg-[#fff1cf]">
       <%= yield %>
