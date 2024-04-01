@@ -70,7 +70,9 @@ ja:
       reset_password_instructions:
         action: パスワード変更
         greeting: "%{recipient}様"
-        instruction: パスワード再設定の依頼を受けたため、メールを送信しています。下のリンクからパスワードの再設定ができます。
+        instruction: |
+          パスワード再設定の依頼を受けたため、メールを送信しています。下のリンクからパスワードの再設定ができます。
+          *有効期限は6時間以内です。
         instruction_2: パスワード再設定の依頼をしていない場合、このメールを無視してください。
         instruction_3: パスワードの再設定は、上のリンクから新しいパスワードを登録するまで完了しません。
         subject: パスワードの再設定について
@@ -90,6 +92,9 @@ ja:
         confirm_new_password: 確認用新しいパスワード
         new_password: 新しいパスワード
       new:
+        reset_password: パスワードリセット
+        registered_email: 登録されているメール
+        send_reset_password_link: パスワード再設定用リンクを送信 
         forgot_your_password: パスワードを忘れましたか？
         send_me_reset_password_instructions: パスワードの再設定方法を送信する
       no_token: このページにはアクセスできません。パスワード再設定メールのリンクからアクセスされた場合には、URL をご確認ください。
