@@ -10,8 +10,13 @@
     「よし。店を探そう」
   </p>
   <div class="flex mt-6" %>
-    <%= link_to 'アカウント作成', new_user_registration_path, class: "text-lg px-8 hover:text-gray-500" %>
-    <%= link_to 'ログイン', new_user_session_path, class: "text-lg px-8 hover:text-gray-500" %>
-    <%= link_to '機能について', '#', class: "text-lg px-8 hover:text-gray-500" %>
+    <% if user_signed_in? %>
+      <%= link_to '店舗検索', '#', class: "text-lg px-8 text-blue-900 hover:underline" %>
+      <%= link_to '機能について', '#', class: "text-lg px-8 text-blue-900 hover:underline" %>
+    <% else %>
+      <%= link_to 'アカウント作成', new_user_registration_path, class: "text-lg px-8 text-blue-900 hover:underline" %>
+      <%= link_to 'ログイン', new_user_session_path, class: "text-lg px-8 text-blue-900 hover:underline" %>
+      <%= link_to '機能について', '#', class: "text-lg px-8 text-blue-900 hover:underline" %>
+    <% end %>
   </div>
 </div>

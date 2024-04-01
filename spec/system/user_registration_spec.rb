@@ -88,7 +88,7 @@ RSpec.describe 'UserRegistration', :js do
 
       it 'アカウント作成が失敗' do
         fill_in '名前', with: 'user1'
-        fill_in 'メール', with: 'test1@example.com'
+        fill_in 'メール', with: 'test3@example.com'
         fill_in 'user[password]', with: 'password'
         fill_in 'user[password_confirmation]', with: 'password'
         find_by_id('user_agreement_terms').click
@@ -113,14 +113,16 @@ RSpec.describe 'UserRegistration', :js do
     context '認証メールのリンクが期限切れ' do
       it 'リンクを押してもアカウント作成されず、認証メールの再送依頼を案内する' do
         fill_user_info
-        sleep 1
+        expect(page).to have_content('本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。')
         user = User.last
         token = user.confirmation_token
-        visit user_confirmation_path(confirmation_token: token)
-        expect(page).to have_text("メールの認証期限が切れています。新しくリクエストしてください。")
-        expect(page).to have_field("メール", with: "user@example.com")
-        click_on 'メール再送'
-        expect(page).to have_content('アカウントの有効化について数分以内にメールでご連絡します。')
+        travel_to 25.hours.after do
+          visit user_confirmation_path(confirmation_token: token)
+          expect(page).to have_text("メールの認証期限が切れています。新しくリクエストしてください。")
+          expect(page).to have_field("メール", with: "user@example.com")
+          click_on 'メール再送'
+          expect(page).to have_content('アカウントの有効化について数分以内にメールでご連絡します。')
+        end
       end
     end
 
