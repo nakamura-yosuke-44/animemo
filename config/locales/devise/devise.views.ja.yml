@@ -116,7 +116,7 @@ ja:
       new:
         sign_up: アカウント登録
         registration: 登録
-        twitter_first_login: 初回につき設定を行います。名前とメールを入力してください。
+        twitter_first_login: 初回につき設定を行います。名前とメールを設定してください。
       signed_up: アカウント作成が完了しました。
       signed_up_but_inactive: ログインするためには、アカウントを有効化してください。
       signed_up_but_locked: アカウントがロックされているためログインできません。
