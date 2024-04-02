@@ -37,3 +37,10 @@ CSV.foreach(Rails.root.join('db', 'CSV', 'stories.csv'), encoding: "bom|utf-8", 
     title: data['title'],
   )
 end
+
+CSV.foreach(Rails.root.join('db', 'CSV', 'story_shops.csv'), encoding: "bom|utf-8", headers: :first_row) do |data|
+  StoryShop.create(
+    story_id: data['story_id'], 
+    shop_id: data['shop_id']
+  )
+end
