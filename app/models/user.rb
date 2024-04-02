@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :timeoutable, :confirmable, :omniauthable,
          omniauth_providers: [:twitter]
-  
+
   # OmniAuth認証データを元にデータベースでユーザーを探す。なければ新しく作る。
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -32,13 +32,13 @@ class User < ApplicationRecord
 
   # ログイン時、OmniAuthで認証したユーザーのパスワード入力免除するため、Deviseの実装をOverrideする。
   def password_required?
-    super && provider.blank?  # provider属性に値があればパスワード入力免除
+    super && provider.blank? # provider属性に値があればパスワード入力免除
   end
 
   # Edit時、OmniAuthで認証したユーザーのパスワード入力免除するため、Deviseの実装をOverrideする。
   def update_with_password(params, *options)
-    if encrypted_password.blank?            # encrypted_password属性が空の場合
-      update_attributes(params, *options)   # パスワード入力なしにデータ更新
+    if encrypted_password.blank? # encrypted_password属性が空の場合
+      update(params, *options) # パスワード入力なしにデータ更新
     else
       super
     end

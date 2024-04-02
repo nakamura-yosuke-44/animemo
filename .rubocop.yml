@@ -75,12 +75,10 @@ Style/WordArray:
   Enabled: false
 
 Style/BlockComments:
-  Exclude:
-    - 'spec/spec_helper.rb'
+  Enabled: false
 
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'config/application.rb'
+Style/FetchEnvVar:
+  Enabled: false
 
 Style/PercentLiteralDelimiters:
   Enabled: false
