@@ -10,9 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_01_144101) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_02_043624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "shops", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "kana", null: false
+    t.text "food"
+    t.text "map"
+    t.text "map_iflame"
+    t.string "prefecture"
+    t.string "municipalities"
+    t.string "stree_address"
+    t.string "station"
+    t.text "transportation"
+    t.string "phone_number"
+    t.text "hp"
+    t.text "tabelog"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kana"], name: "index_shops_on_kana"
+    t.index ["latitude"], name: "index_shops_on_latitude"
+    t.index ["longitude"], name: "index_shops_on_longitude"
+    t.index ["municipalities"], name: "index_shops_on_municipalities"
+    t.index ["name"], name: "index_shops_on_name"
+    t.index ["prefecture"], name: "index_shops_on_prefecture"
+    t.index ["station"], name: "index_shops_on_station"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
