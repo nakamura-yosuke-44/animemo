@@ -10,7 +10,7 @@
 
 require "csv"
 
-CSV.foreach(Rails.root.join('db', 'shops.csv'), encoding: "bom|utf-8", headers: :first_row) do |data|
+CSV.foreach(Rails.root.join('db', 'CSV', 'shops.csv'), encoding: "bom|utf-8", headers: :first_row) do |data|
   Shop.create(
     name: data['name'], 
     kana: data['kana'], 
@@ -27,5 +27,20 @@ CSV.foreach(Rails.root.join('db', 'shops.csv'), encoding: "bom|utf-8", headers: 
     tabelog: data['tabelog'], 
     latitude: data['latitude'], 
     longitude: data['longitude']
+  )
+end
+
+CSV.foreach(Rails.root.join('db', 'CSV', 'stories.csv'), encoding: "bom|utf-8", headers: :first_row) do |data|
+  Story.create(
+    season: data['season'], 
+    ep: data['ep'], 
+    title: data['title'],
+  )
+end
+
+CSV.foreach(Rails.root.join('db', 'CSV', 'story_shops.csv'), encoding: "bom|utf-8", headers: :first_row) do |data|
+  StoryShop.create(
+    story_id: data['story_id'], 
+    shop_id: data['shop_id']
   )
 end
