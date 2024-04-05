@@ -3,13 +3,15 @@ import axios from 'axios';
 import { createRoot } from 'react-dom/client';
 import ShopSearch from './components/search/ShopSearch';
 
+const mountNode = document.getElementById('shop_index');
+const root = createRoot(mountNode);
 
-async function indexColors () {
+async function indexShop() {
   try {
     const response = await axios.get('/api/shops');
     const { arryPrefecture, arrySeason } = response.data;
-    const mountNode = document.getElementById('shop_index');
-    createRoot(mountNode).render(
+    console.log(root);
+    root.render(
       <ShopSearch arryPrefecture={arryPrefecture} arrySeason={arrySeason} />,
     );
   } catch (error) {
@@ -17,4 +19,4 @@ async function indexColors () {
   }
 }
 
-indexColors()
+indexShop();
