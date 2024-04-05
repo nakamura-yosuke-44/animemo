@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>KodoguruSearch</title>
+    <title><%= yield(:title) || "こどぐるサーチ" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "all" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true, type: "module" %>
   </head>
@@ -16,8 +15,9 @@
     <% else %>
       <%= render 'shared/before_login_header' %>
     <% end %>
-    <%= render 'shared/flash_message' %>  
+    <%= render 'shared/flash_message' %>
     <div class="grow flex flex-col bg-[#fff1cf]">
+      <div class="container mx-auto mt-16 text-4xl"><%= yield(:title) || "こどぐるサーチ" %></div>
       <%= yield %>
     </div>
     <%= render 'shared/footer' %>

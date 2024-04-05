@@ -1,4 +1,4 @@
-<div class="flex-1 flex flex-col justify-center items-center border-2">
+<div class="flex-1 flex flex-col justify-center items-center">
   <p class="text-4xl font-bold mb-6">
     ようこそ、「こどぐるサーチ」へ
   </p>
@@ -11,7 +11,7 @@
   </p>
   <div class="flex mt-6" %>
     <% if user_signed_in? %>
-      <%= link_to '店舗検索', '#', class: "text-lg px-8 text-blue-900 hover:underline" %>
+      <%= link_to '店舗検索', shops_path, class: "text-lg px-8 text-blue-900 hover:underline" %>
       <%= link_to '機能について', '#', class: "text-lg px-8 text-blue-900 hover:underline" %>
     <% else %>
       <%= link_to 'アカウント作成', new_user_registration_path, class: "text-lg px-8 text-blue-900 hover:underline" %>

@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   root "top#top"
+  resources :shops, only: %i[index show]
+
+  namespace :api do
+    resources :shops, only: %i[index show] do
+      collection do
+        get 'search'
+      end
+    end
+  end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
