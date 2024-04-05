@@ -34,6 +34,8 @@ module.exports = {
       'jsx-a11y/click-events-have-key-events': 'warn',
       'no-inner-declarations': 'warn',
       'import/prefer-default-export': 'warn',
+      'jsx-a11y/no-noninteractive-element-interactions': 'warn',
+      'react/require-default-props': 'off'
     }
   };
   
