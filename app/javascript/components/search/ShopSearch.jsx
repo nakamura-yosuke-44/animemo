@@ -60,7 +60,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
 
   return (
     <div className="container mx-auto">
-      <div className="flex m-6 h-10">
+      <div className="m-6 flex h-10">
         <SwitchSearchButton />
       </div>
       <div className="flex flex-col">
@@ -78,9 +78,13 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
             resultMuniArr={resultMuniArr}
           />
         </div>
-        <div className='mx-8'>検索結果：{searchResults.length}件</div>
+        <div className="mx-8">
+          検索結果：
+          {searchResults.length}
+          件
+        </div>
         {searchResults.length > 0 ? (
-          <table className="border border-black bg-white m-6 relative">
+          <table className="relative m-6 border border-black bg-white">
             <thead>
               <tr className="h-10 border border-black bg-slate-300">
                 <th className="w-[250px]">エピソード</th>
@@ -104,16 +108,16 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
                       </div>
                     ))}
                   </td>
-                  <td className="text-center px-2 text-blue-900 hover:underline"><a href={`/shops/${result.id}`} target="_blank" rel="noopener noreferrer">{result.name}</a></td>
-                  <td className="text-center px-8">{result.prefecture}</td>
-                  <td className="text-center px-2">{result.municipalities}</td>
-                  <td className="text-center px-2">{result.station}</td>
+                  <td className="px-2 text-center text-blue-900 hover:underline"><a href={`/shops/${result.id}`} target="_blank" rel="noopener noreferrer">{result.name}</a></td>
+                  <td className="px-8 text-center">{result.prefecture}</td>
+                  <td className="px-2 text-center">{result.municipalities}</td>
+                  <td className="px-2 text-center">{result.station}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-         ) : (
-          <p className="text-center text-gray-500 mt-6">条件に合う店舗は見つかりません。</p>
+        ) : (
+          <p className="mt-6 text-center text-gray-500">条件に合う店舗は見つかりません。</p>
         )}
       </div>
     </div>

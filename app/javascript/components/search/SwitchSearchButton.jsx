@@ -1,11 +1,11 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 function SwitchSearchButton() {
   const [selectedButton, setSelectedButton] = useState('condition');
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
   };
-  
+
   return (
     <div>
       <button
