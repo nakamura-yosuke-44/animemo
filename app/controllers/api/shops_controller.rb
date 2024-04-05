@@ -10,10 +10,10 @@ class Api::ShopsController < ApplicationController
 
   def search
     shops = if params[:season] == "全シーズン"
-      Shop.all
-    else
-      Shop.includes(:stories).by_season(params[:season])
-    end
+              Shop.all
+            else
+              Shop.includes(:stories).by_season(params[:season])
+            end
     shops = shops.by_name(params[:name])
     shops = shops.by_prefecture(params[:prefecture])
     shops = shops.by_municipalities(params[:municipalities])

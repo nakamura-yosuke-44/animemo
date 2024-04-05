@@ -35,10 +35,7 @@ RSpec.describe 'UserRegistration', :js do
       it 'readonlyでタイプ入力できず、選択肢が表示される' do
         find('#seasonInput').readonly?
         find('#seasonInput').click
-        within('#autocomplete') do
-          li_count = page.all('li').count
-          li_count = 24
-        end
+        expect(page).to have_css('#autocomplete li', count: 24)
       end
     end
 
@@ -68,6 +65,7 @@ RSpec.describe 'UserRegistration', :js do
         expect(page).not_to have_content('花茶')
         expect(page).to have_content('草花木果-SokaBokka-')
       end
+
       it 'kana検索できる' do
         fill_in 'nameInput', with: 'そーか'
         expect(page).not_to have_content('花茶')
@@ -128,6 +126,5 @@ RSpec.describe 'UserRegistration', :js do
         expect(page).not_to have_content('川崎市')
       end
     end
-
   end
 end
