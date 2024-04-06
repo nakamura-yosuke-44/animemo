@@ -78,13 +78,13 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
             resultMuniArr={resultMuniArr}
           />
         </div>
-        <div className="mx-8">
+        <div>
           検索結果：
           {searchResults.length}
           件
         </div>
         {searchResults.length > 0 ? (
-          <table className="relative m-6 border border-black bg-white">
+          <table className="relative border border-black bg-white">
             <thead>
               <tr className="h-10 border border-black bg-slate-300">
                 <th className="w-[250px]">エピソード</th>
