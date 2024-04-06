@@ -19,12 +19,12 @@ CSV.foreach(Rails.root.join('db', 'CSV', 'shops.csv'), encoding: "bom|utf-8", he
     map_iflame: data['map_iflame'], 
     prefecture: data['prefecture'], 
     municipalities: data['municipalities'], 
-    stree_address: data['stree_address'],
+    street_address: data['street_address'],
     station: data['station'], 
     transportation: data['transportation'], 
     phone_number: data['phone_number'],
     hp: data['hp'], 
-    tabelog: data['tabelog'], 
+    tabelog_url: data['tabelog_url'], 
     latitude: data['latitude'], 
     longitude: data['longitude']
   )
