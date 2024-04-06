@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UserRegistration', :js do
+RSpec.describe 'SearchShop', :js do
   before do
     visit shops_path
     find('#seasonInput').click
@@ -125,6 +125,11 @@ RSpec.describe 'UserRegistration', :js do
         expect(page).not_to have_content('Season3')
         expect(page).not_to have_content('川崎市')
       end
+    end
+
+    it '店舗名は店舗詳細ページへのリンクになっている' do
+      shops_1 = Shop.first
+      expect(page).to have_link(shops_1.name)
     end
   end
 end

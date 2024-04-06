@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_02_154923) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_05_201001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,12 +22,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_02_154923) do
     t.text "map_iflame"
     t.string "prefecture"
     t.string "municipalities"
-    t.string "stree_address"
+    t.string "street_address"
     t.string "station"
     t.text "transportation"
     t.string "phone_number"
     t.text "hp"
-    t.text "tabelog"
+    t.text "tabelog_url"
     t.float "latitude"
     t.float "longitude"
     t.datetime "created_at", null: false

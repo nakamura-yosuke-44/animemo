@@ -19,4 +19,14 @@ class Api::ShopsController < ApplicationController
     shops = shops.by_municipalities(params[:municipalities])
     render json: shops, include: :stories
   end
+
+  def show
+    shop = Shop.find_by(id: params[:id])
+
+    if shop
+      render json: shop, include: :stories
+    else
+      render json: { error: 'ショップが見つかりませんでした' }, status: :not_found
+    end
+  end
 end

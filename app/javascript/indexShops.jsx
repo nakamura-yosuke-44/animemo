@@ -10,7 +10,6 @@ async function indexShop() {
   try {
     const response = await axios.get('/api/shops');
     const { arryPrefecture, arrySeason } = response.data;
-    console.log(root);
     root.render(
       <ShopSearch arryPrefecture={arryPrefecture} arrySeason={arrySeason} />,
     );
