@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :posts
+
   validates :name, presence: true
   validates :agreement_terms, acceptance: { accept: true, on: :create }
   # Include default devise modules. Others available are:
