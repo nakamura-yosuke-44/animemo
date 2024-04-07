@@ -1,10 +1,10 @@
 class Api::PostsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :check_authenticate_user!
-  
+
   def create
     post = current_user.posts.build(post_params)
-    
+
     if post.save
       render json: post, status: :created
     else
@@ -19,8 +19,6 @@ class Api::PostsController < ApplicationController
   end
 
   def check_authenticate_user!
-    unless current_user
-      render json: { error: 'ログインしてください' }, status: :unauthorized
-    end
+    render json: { error: 'ログインしてください' }, status: :unauthorized unless current_user
   end
 end

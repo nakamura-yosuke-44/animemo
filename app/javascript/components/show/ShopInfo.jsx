@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import UserPosts from '../post/UserPosts';
-import PostModal from '../post/PostModal';
 import Gallery from '../post/Gallery';
 
 function ShopInfo({ shopId = '' }) {
@@ -14,8 +13,8 @@ function ShopInfo({ shopId = '' }) {
       const response = await axios.get(`/api/shops/${shopId}`);
       const { data } = response;
       setShop(data);
-      const orderPosts = data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-      setUserPosts(orderPosts)
+      const orderPosts = data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      setUserPosts(orderPosts);
       const srcRegex = /src="([^"]*)"/;
       const mapIflame = data.map_iflame.match(srcRegex);
       if (mapIflame) {
@@ -32,7 +31,7 @@ function ShopInfo({ shopId = '' }) {
   }, [shopId]);
 
   return (
-    <div className='m-4'>
+    <div className="m-4">
       <div className="container mx-auto">
         { shop !== null ? (
           <>
@@ -80,7 +79,7 @@ function ShopInfo({ shopId = '' }) {
                       </table>
                     </div>
                   </div>
-                  <div className="max-sm:mt-2 flex-1 ">
+                  <div className="flex-1 max-sm:mt-2 ">
                     <iframe title="Google Maps" src={iflame} style={{ width: '100%', height: '100%', border: '0' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
                   </div>
                 </div>
@@ -117,7 +116,7 @@ function ShopInfo({ shopId = '' }) {
               </div>
             </div>
             <UserPosts userPosts={userPosts} setUserPosts={setUserPosts} shopId={shopId} />
-            <Gallery userPosts={userPosts}/>
+            <Gallery userPosts={userPosts} />
           </>
         ) : (
           <div className="mt-3 flex">

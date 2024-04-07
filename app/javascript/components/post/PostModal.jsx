@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-function PostModal({ shopId = '', setUserPosts = () => {}}) {
+function PostModal({ shopId = '', setUserPosts = () => { } }) {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -23,14 +23,13 @@ function PostModal({ shopId = '', setUserPosts = () => {}}) {
 
       await axios.post('/api/posts', formData);
       const response = await axios.get(`/api/shops/${shopId}`);
-      console.log(response.data.posts)
-      const orderPosts = response.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      const orderPosts = response.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);
       setShowModal(false);
       alert('投稿しました');
-      setTitle('')
-      setBody('')
-      setImage('')
+      setTitle('');
+      setBody('');
+      setImage('');
     } catch (error) {
       console.error('エラー:', error);
       alert('リクエスト中にエラーが発生しました');
@@ -44,11 +43,11 @@ function PostModal({ shopId = '', setUserPosts = () => {}}) {
 
   return (
     <div>
-      <button type="button" className="p-1 ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded text-xs" onClick={() => setShowModal(true)}>
+      <button type="button" className="ml-3 rounded bg-blue-500 p-1 text-xs font-bold text-white hover:bg-blue-700" onClick={() => setShowModal(true)}>
         投稿する
       </button>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative flex h-1/2 w-2/3 flex-col rounded-lg bg-white p-8">
             <button type="button" className="btn btn-circle btn-sm absolute right-0 top-0 mr-2 mt-2" onClick={() => setShowModal(false)}>✕</button>
             <form className="flex flex-1 flex-col " onSubmit={handleSubmit}>
@@ -61,11 +60,11 @@ function PostModal({ shopId = '', setUserPosts = () => {}}) {
                 <textarea id="body" value={body} onChange={(e) => setBody(e.target.value)} className="block flex-1 rounded-md border border-black p-2" />
               </div>
               <div className="mb-4">
-                <label htmlFor="images" className="mt-2 block">画像を選択:</label>
+                <label htmlFor="image" className="mt-2 block">画像を選択:</label>
                 <input id="image" type="file" onChange={handleImageChange} className="block w-full rounded-md border border-black p-2" />
               </div>
               <div className="flex justify-end">
-                <button ctype="submit" className="btn btn-accent">投稿</button>
+                <button type="submit" className="btn btn-accent">投稿</button>
               </div>
             </form>
           </div>
@@ -77,6 +76,7 @@ function PostModal({ shopId = '', setUserPosts = () => {}}) {
 
 PostModal.propTypes = {
   shopId: PropTypes.string,
+  setUserPosts: PropTypes.func,
 };
 
 export default PostModal;
