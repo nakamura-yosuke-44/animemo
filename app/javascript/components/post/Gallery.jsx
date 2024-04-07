@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Gallery({ userPosts }) {
-  console.log(userPosts);
   return (
     <div className="mt-12">
       <div className="mb-5 mt-4 text-center text-xl">写真ギャラリー</div>
@@ -27,9 +26,12 @@ Gallery.propTypes = {
       body: PropTypes.string.isRequired,
       user_id: PropTypes.number.isRequired,
       shop_id: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-    }),
-  ),
+      image: PropTypes.shape({
+        url: PropTypes.string,
+        alt: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
+  ).isRequired,
 };
 
 export default Gallery;

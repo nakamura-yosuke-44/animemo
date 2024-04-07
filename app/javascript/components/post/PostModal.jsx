@@ -4,7 +4,7 @@ import axios from 'axios';
 
 axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-function PostModal({ shopId = '', setUserPosts = () => { } }) {
+function PostModal({ shopId = '', setUserPosts }) {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -25,6 +25,10 @@ function PostModal({ shopId = '', setUserPosts = () => { } }) {
       const response = await axios.get(`/api/shops/${shopId}`);
       const orderPosts = response.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);
+      if (response.data.errors) {
+        const errorMessages = response.data.errors;
+        alert(errorMessages.join('\n'));
+      }
       setShowModal(false);
       alert('投稿しました');
       setTitle('');
@@ -32,7 +36,7 @@ function PostModal({ shopId = '', setUserPosts = () => { } }) {
       setImage('');
     } catch (error) {
       console.error('エラー:', error);
-      alert('リクエスト中にエラーが発生しました');
+      alert('入力項目が不足しています。');
     }
   };
 

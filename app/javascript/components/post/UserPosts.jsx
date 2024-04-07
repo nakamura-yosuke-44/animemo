@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import PostModal from './PostModal';
+import CheckCurrentUser from '../../CheckCurrentUser';
+import PostDeleteItem from './PostDeleteItem';
 
 function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null }) {
+  const [currentUser, setCurrentUser] = useState(null);
+  console.log(currentUser);
   return (
     <>
+      <CheckCurrentUser setCurrentUser={setCurrentUser} />
       <div className="flex pl-10 pt-10">
         <div className="text-xl">みんなの投稿</div>
         <PostModal setUserPosts={setUserPosts} shopId={shopId} />
@@ -13,15 +18,21 @@ function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null })
         <div>
           <div className=" border-blackflex flex-col items-center justify-center sm:text-base ">
             {userPosts.map((post) => (
-              <div className="card my-4 w-96 bg-base-100 shadow-xl">
+              <div className="card my-4 w-96 bg-base-100 shadow-xl" key={post.id}>
                 <figure><img src={post.image.url} /></figure>
                 <div className="card-body">
                   <div className="card-title">{post.title}</div>
                   <p>{post.body}</p>
                   <p>
                     by
+                    {'　'}
                     {post.user.name}
                   </p>
+                  <div>
+                    { currentUser === post.user.id
+
+                    && <PostDeleteItem post={post} setUserPosts={setUserPosts} />}
+                  </div>
                 </div>
               </div>
             ))}
@@ -40,11 +51,14 @@ UserPosts.propTypes = {
       body: PropTypes.string.isRequired,
       user_id: PropTypes.number.isRequired,
       shop_id: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-    }),
-  ),
+      image: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        alt: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
+  ).isRequired,
   setUserPosts: PropTypes.func,
-  shopId: PropTypes.number,
+  shopId: PropTypes.string,
 };
 
 export default UserPosts;

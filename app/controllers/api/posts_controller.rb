@@ -1,6 +1,8 @@
 class Api::PostsController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!  # deviseのメソッドをスキップ
   before_action :check_authenticate_user!
+  before_action :set_post, only: [:update, :destroy]
+  before_action :authorize_user!, only: [:update, :destroy] 
 
   def create
     post = current_user.posts.build(post_params)
@@ -12,6 +14,20 @@ class Api::PostsController < ApplicationController
     end
   end
 
+  def update
+    if @post.update(post_params)
+      render json: { message: '投稿が削除されました。' }, status: :ok
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post.destroy
+    head :no_content
+    return
+  end
+
   private
 
   def post_params
@@ -21,4 +37,15 @@ class Api::PostsController < ApplicationController
   def check_authenticate_user!
     render json: { error: 'ログインしてください' }, status: :unauthorized unless current_user
   end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def authorize_user!
+    unless @post.user == current_user
+      render json: { error: '権限がありません。' }, status: :forbidden
+    end
+  end
 end
+
