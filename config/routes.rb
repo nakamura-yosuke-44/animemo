@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :shops, only: %i[index show]
 
   namespace :api do
+    resources :posts, only: %i[index create destroy]
     resources :shops, only: %i[index show] do
       collection do
         get 'search'

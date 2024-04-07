@@ -76,6 +76,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'faker', '~> 3.3', '>= 3.3.1'
 end
 
 gem 'devise', '~> 4.9', '>= 4.9.3'
@@ -85,3 +86,5 @@ gem 'config', '~> 5.4'
 gem 'omniauth-twitter', '~> 1.4'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 gem 'dotenv-rails', '~> 3.1'
+gem 'carrierwave', '~> 3.0', '>= 3.0.7'
+gem 'mini_magick', '~> 4.12'

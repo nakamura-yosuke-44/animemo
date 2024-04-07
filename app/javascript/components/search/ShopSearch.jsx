@@ -108,7 +108,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
                       </div>
                     ))}
                   </td>
-                  <td className="px-2 text-center text-blue-900 hover:underline"><a href={`/shops/${result.id}`} target="_blank" rel="noopener noreferrer">{result.name}</a></td>
+                  <td className="px-2 text-center text-blue-900 hover:underline"><a href={`/shops/${result.id}`} >{result.name}</a></td>
                   <td className="px-8 text-center">{result.prefecture}</td>
                   <td className="px-2 text-center">{result.municipalities}</td>
                   <td className="px-2 text-center">{result.station}</td>

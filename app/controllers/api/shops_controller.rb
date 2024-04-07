@@ -21,12 +21,12 @@ class Api::ShopsController < ApplicationController
   end
 
   def show
-    shop = Shop.find_by(id: params[:id])
-
+    shop = Shop.includes(posts: :user).find_by(id: params[:id])
+  
     if shop
-      render json: shop, include: :stories
+      render json: shop, include: { posts: { include: :user }, stories: {} }
     else
-      render json: { error: 'ショップが見つかりませんでした' }, status: :not_found
+      render json: { error: 'ショップが見つかりませんでした' }, status: :unprocessable_entity
     end
-  end
+  end  
 end
