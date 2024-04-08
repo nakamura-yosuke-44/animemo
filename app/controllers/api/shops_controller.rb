@@ -26,7 +26,7 @@ class Api::ShopsController < ApplicationController
     if shop
       render json: shop, include: { posts: { include: :user }, stories: {} }
     else
-      render json: { error: 'ショップが見つかりませんでした' }, status: :unprocessable_entity
+      render json: { error: '店舗が見つかりませんでした' }, status: :unprocessable_entity
     end
   end
 end

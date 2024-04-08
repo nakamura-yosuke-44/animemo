@@ -1,32 +1,33 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { AiFillEdit } from 'react-icons/ai';
 import axios from 'axios';
 
 axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-function PostModal({ shopId = '', setUserPosts }) {
+function PostUpdateItem({ post = null, setUserPosts }) {
   const [showModal, setShowModal] = useState(false);
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [image, setImage] = useState('');
+  const [title, setTitle] = useState(post.title);
+  const [body, setBody] = useState(post.body);
+  const [image, setImage] = useState(post.image.url);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append('post[shop_id]', shopId);
+      formData.append('post[shop_id]', post.shop_id);
       formData.append('post[title]', title);
       formData.append('post[body]', body);
       if (image) {
         formData.append('post[image]', image);
       }
 
-      await axios.post('/api/posts', formData);
-      const response = await axios.get(`/api/shops/${shopId}`);
+      await axios.put(`/api/posts/${post.id}`, formData);
+      const response = await axios.get(`/api/shops/${post.shop_id}`);
       const orderPosts = response.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);
       setShowModal(false);
-      alert('投稿しました');
+      alert('更新しました');
       setTitle('');
       setBody('');
       setImage('');
@@ -43,9 +44,7 @@ function PostModal({ shopId = '', setUserPosts }) {
 
   return (
     <div>
-      <button type="button" className="ml-3 rounded bg-blue-500 p-1 text-xs font-bold text-white hover:bg-blue-700" onClick={() => setShowModal(true)}>
-        投稿する
-      </button>
+      <AiFillEdit onClick={() => setShowModal(true)} />
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative flex h-1/2 w-2/3 flex-col rounded-lg bg-white p-8">
@@ -64,7 +63,7 @@ function PostModal({ shopId = '', setUserPosts }) {
                 <input id="image" type="file" onChange={handleImageChange} className="block w-full rounded-md border border-black p-2" />
               </div>
               <div className="flex justify-end">
-                <button type="submit" className="btn btn-accent">投稿</button>
+                <button type="submit" className="btn btn-accent">更新</button>
               </div>
             </form>
           </div>
@@ -74,9 +73,19 @@ function PostModal({ shopId = '', setUserPosts }) {
   );
 }
 
-PostModal.propTypes = {
-  shopId: PropTypes.string,
-  setUserPosts: PropTypes.func,
+PostUpdateItem.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    user_id: PropTypes.number.isRequired,
+    shop_id: PropTypes.number.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alt: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
+  setUserPosts: PropTypes.func.isRequired,
 };
 
-export default PostModal;
+export default PostUpdateItem;
