@@ -25,10 +25,6 @@ function PostModal({ shopId = '', setUserPosts }) {
       const response = await axios.get(`/api/shops/${shopId}`);
       const orderPosts = response.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);
-      if (response.data.errors) {
-        const errorMessages = response.data.errors;
-        alert(errorMessages.join('\n'));
-      }
       setShowModal(false);
       alert('投稿しました');
       setTitle('');

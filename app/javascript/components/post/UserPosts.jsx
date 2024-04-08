@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import PostModal from './PostModal';
 import CheckCurrentUser from '../../CheckCurrentUser';
 import PostDeleteItem from './PostDeleteItem';
+import PostUpdateItem from './PostUpdateItem';
 
 function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -12,7 +13,7 @@ function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null })
       <CheckCurrentUser setCurrentUser={setCurrentUser} />
       <div className="flex pl-10 pt-10">
         <div className="text-xl">みんなの投稿</div>
-        <PostModal setUserPosts={setUserPosts} shopId={shopId} />
+        {currentUser && <PostModal setUserPosts={setUserPosts} shopId={shopId} />}
       </div>
       <div className="mx-4 mt-12 flex items-center justify-center">
         <div>
@@ -25,13 +26,21 @@ function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null })
                   <p>{post.body}</p>
                   <p>
                     by
-                    {'　'}
+                    {' '}
                     {post.user.name}
                   </p>
                   <div>
                     { currentUser === post.user.id
-
-                    && <PostDeleteItem post={post} setUserPosts={setUserPosts} />}
+                    && (
+                    <div className="flex justify-end">
+                      <div className="mx-3">
+                        <PostDeleteItem post={post} setUserPosts={setUserPosts} />
+                      </div>
+                      <div className="mx-3">
+                        <PostUpdateItem post={post} setUserPosts={setUserPosts} />
+                      </div>
+                    </div>
+                    )}
                   </div>
                 </div>
               </div>

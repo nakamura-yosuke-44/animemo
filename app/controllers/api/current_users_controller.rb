@@ -1,5 +1,8 @@
 class Api::CurrentUsersController < ApplicationController
+  skip_before_action :authenticate_user!
+  
   def show
-    render json: current_user.id
+    id = current_user.id
+    render json: id
   end
 end
