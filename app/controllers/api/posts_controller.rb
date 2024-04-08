@@ -1,9 +1,14 @@
 class Api::PostsController < ApplicationController
   skip_before_action :authenticate_user! # deviseのメソッドをスキップ
-  before_action :check_authenticate_user!
+  before_action :check_authenticate_user!, except: [:index]
   before_action :set_post, only: [:update, :destroy]
   before_action :authorize_user!, only: [:update, :destroy]
 
+  def index
+    posts = Post.all.includes(:user, :shop)
+    render json: posts, include: { user: {}, shop: {} }
+  end
+  
   def create
     post = current_user.posts.build(post_params)
 
