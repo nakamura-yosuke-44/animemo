@@ -3,11 +3,14 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import UserPosts from '../post/UserPosts';
 import Gallery from '../post/Gallery';
+import VisitSelect from '../visit/VisitSelect';
+import CheckCurrentUser from '../../CheckCurrentUser';
 
 function ShopInfo({ shopId = '' }) {
   const [shop, setShop] = useState(null);
   const [iflame, setIflame] = useState('');
   const [userPosts, setUserPosts] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null)
   const fetchShop = async () => {
     try {
       const response = await axios.get(`/api/shops/${shopId}`);
@@ -25,16 +28,18 @@ function ShopInfo({ shopId = '' }) {
       console.error('店舗情報の取得エラー:', error);
     }
   };
-
   useEffect(() => {
     fetchShop();
   }, [shopId]);
 
   return (
+  <>
+    <CheckCurrentUser setCurrentUser={setCurrentUser} />
     <div className="m-4">
       <div className="container mx-auto">
         { shop !== null ? (
           <>
+          <VisitSelect shopId={shopId} currentUser={currentUser}/>
             <div className="text-sm sm:text-base">
               <div className="mt-4 flex w-full">
                 <div className="flex w-full max-sm:flex-1 max-sm:flex-col">
@@ -127,6 +132,7 @@ function ShopInfo({ shopId = '' }) {
         )}
       </div>
     </div>
+  </>
   );
 }
 

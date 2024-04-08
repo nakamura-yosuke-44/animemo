@@ -2,7 +2,10 @@ class Shop < ApplicationRecord
   has_many :story_shops
   has_many :stories, through: :story_shops
 
-  has_many :posts
+  has_many :visits
+  has_many :users, through: :visits
+
+  has_many :posts, dependent: :destroy
 
   scope :by_name, ->(name) { where('name LIKE ?  OR kana LIKE ? ', "%#{name}%", "%#{name}%") }
   scope :by_prefecture, ->(prefecture) { where('prefecture LIKE ?', "#{prefecture}%") }
