@@ -1,8 +1,8 @@
 class Api::PostsController < ApplicationController
-  skip_before_action :authenticate_user!  # deviseのメソッドをスキップ
+  skip_before_action :authenticate_user! # deviseのメソッドをスキップ
   before_action :check_authenticate_user!
   before_action :set_post, only: [:update, :destroy]
-  before_action :authorize_user!, only: [:update, :destroy] 
+  before_action :authorize_user!, only: [:update, :destroy]
 
   def create
     post = current_user.posts.build(post_params)
@@ -25,7 +25,7 @@ class Api::PostsController < ApplicationController
   def destroy
     @post.destroy
     head :no_content
-    return
+    nil
   end
 
   private
@@ -43,9 +43,6 @@ class Api::PostsController < ApplicationController
   end
 
   def authorize_user!
-    unless @post.user == current_user
-      render json: { error: '権限がありません。' }, status: :forbidden
-    end
+    render json: { error: '権限がありません。' }, status: :forbidden unless @post.user == current_user
   end
 end
-

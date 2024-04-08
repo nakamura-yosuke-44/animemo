@@ -1,0 +1,2 @@
+module Api::MyPagesHelper
+end

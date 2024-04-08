@@ -59,13 +59,12 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
   };
 
   return (
-    <div className="container m-3 mx-auto">
-      <div className="m-6 flex h-10">
+    <div className="container mx-auto">
+      <div className="flex mt-4">
         <SwitchSearchButton />
       </div>
       <div className="flex flex-col">
-        <div className="flex items-center justify-end">
-          <div>検索条件</div>
+        <div className="flex justify-end">
           <SearchForm
             name={name}
             prefecture={prefecture}
@@ -87,7 +86,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
           <table className="relative border border-black bg-white">
             <thead>
               <tr className="h-10 border border-black bg-slate-300">
-                <th className="w-[250px]">エピソード</th>
+                <th className="w-[200px]">エピソード</th>
                 <th className="w-[200px]">店舗名</th>
                 <th className="w-[140px]">都道府県</th>
                 <th className="w-[150px]">市区町村</th>
@@ -108,10 +107,10 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
                       </div>
                     ))}
                   </td>
-                  <td className="px-2 text-center text-blue-900 hover:underline"><a href={`/shops/${result.id}`}>{result.name}</a></td>
-                  <td className="px-8 text-center">{result.prefecture}</td>
-                  <td className="px-2 text-center">{result.municipalities}</td>
-                  <td className="px-2 text-center">{result.station}</td>
+                  <td className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${result.id}`}>{result.name}</a></td>
+                  <td className="py-8 text-center">{result.prefecture}</td>
+                  <td className="py-2 text-center">{result.municipalities}</td>
+                  <td className="py-2 text-center">{result.station}</td>
                 </tr>
               ))}
             </tbody>

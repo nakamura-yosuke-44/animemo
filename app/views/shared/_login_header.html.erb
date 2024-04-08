@@ -1,4 +1,4 @@
-<header class="flex navbar h-16 bg-[#192f60] sticky top-0 z-50">
+<header class="flex navbar h-16 bg-[#192f60] sticky top-0 z-50 text-xs sm:text-xl">
   <div class="flex-none">
     <div class="drawer">
       <input id="m-drawer" type="checkbox" class="drawer-toggle" />
@@ -8,12 +8,12 @@
       </div>
       <div class="drawer-side z-50">
         <label for="m-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
-        <ul class="menu p-4 w-80 min-h-full bg-[#d4dcd6]">
+        <ul class="menu min-h-full bg-[#d4dcd6]">
           <li><%= link_to "店舗検索", shops_path %></li>
           <li><%= link_to("みんなの新着投稿", '#') %></li>
           <li><%= link_to("フォロー新着投稿", '#') %></li>
           <li><%= link_to("マイページ", '#') %></li>
-          <li><%= link_to("マイリスト", '#') %></li>
+          <li><%= link_to "マイリスト", my_list_path%></li>
           <li><%= link_to("機能について", '#') %></li>
         </ul>
       </div>
@@ -21,14 +21,10 @@
   </div>
   <div class="flex-1">
     <%= link_to root_path do %>
-      <span class="text-xl text-white">こどぐるサーチ</span>
+      <span class="text-white">こどぐるサーチ</span>
     <% end %>
   </div>
-  <div class="justify-end text-white">
-    <span>こんにちは、<%= current_user.name %>さん</span>
-    <span id="notification" class="px-1"></span>
-  </div>
-  <div class="justify-end text-white px-8 hover:text-slate-300">
+  <div class="justify-end text-white hover:text-slate-300 p-4">
     <%= link_to "ログアウト", destroy_user_session_path , data: {turbo_method: :delete, turbo_confirm: "ログアウトしますか？"} %>
   </div>
 </header>

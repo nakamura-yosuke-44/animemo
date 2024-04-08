@@ -10,6 +10,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe Api::VisitsHelper, type: :helper do
+RSpec.describe Api::VisitsHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end
