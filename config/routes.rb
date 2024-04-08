@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       end
     end
     resource :current_user, only: [:show]
+   
+    resources :visits, only: [:show, :update], param: :user_id
+    
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }

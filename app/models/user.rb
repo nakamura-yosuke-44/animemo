@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  has_many :posts
+  has_many :posts, dependent: :destroy
+  has_many :uvisits
+  has_many :shops, through: :viisits
 
   validates :name, presence: true
   validates :agreement_terms, acceptance: { accept: true, on: :create }
