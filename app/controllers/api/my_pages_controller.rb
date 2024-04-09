@@ -8,7 +8,7 @@ class Api::MyPagesController < ApplicationController
         went_list = Visit.where(user_id: current_user_id, status: 'went').includes(:shop)
         render json: went_list, include: [:shop]
       when 'want_to'
-        want_list = Visit.where(user_id: current_user_id, status: 'want').includes(:shop)
+        want_list = Visit.where(user_id: current_user_id, status: 'want_to').includes(:shop)
         render json: want_list, include: [:shop]
       when 'pending'
         pending_list = Visit.where(user_id: current_user_id, status: 'pending').includes(:shop)

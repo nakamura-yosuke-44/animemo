@@ -59,7 +59,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mb-4">
       <div className="flex mt-4">
         <SwitchSearchButton />
       </div>

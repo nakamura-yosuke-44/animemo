@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_08_031727) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_09_155634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_08_031727) do
     t.datetime "updated_at", null: false
     t.index ["shop_id"], name: "index_posts_on_shop_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.text "bio"
+    t.string "avatar"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shops", force: :cascade do |t|
@@ -82,7 +98,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_08_031727) do
     t.string "unconfirmed_email"
     t.string "name", null: false
     t.integer "role", default: 0, null: false
-    t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "agreement_terms", default: false, null: false
@@ -105,6 +120,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_08_031727) do
 
   add_foreign_key "posts", "shops"
   add_foreign_key "posts", "users"
+  add_foreign_key "profiles", "users"
   add_foreign_key "story_shops", "shops"
   add_foreign_key "story_shops", "stories"
   add_foreign_key "visits", "shops"

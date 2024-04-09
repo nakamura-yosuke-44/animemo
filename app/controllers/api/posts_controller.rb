@@ -1,9 +1,14 @@
 class Api::PostsController < ApplicationController
   skip_before_action :authenticate_user! # deviseのメソッドをスキップ
-  before_action :check_authenticate_user!
+  before_action :check_authenticate_user!, except: [:index]
   before_action :set_post, only: [:update, :destroy]
   before_action :authorize_user!, only: [:update, :destroy]
 
+  def index
+    posts = Post.all.includes(:user, :shop)
+    render json: posts, include: { user: {}, shop: {} }
+  end
+  
   def create
     post = current_user.posts.build(post_params)
 
@@ -15,10 +20,10 @@ class Api::PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
+    if post.update(post_params)
       render json: { message: '投稿内容を更新しました。' }, status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: post.errors, status: :unprocessable_entity
     end
   end
 

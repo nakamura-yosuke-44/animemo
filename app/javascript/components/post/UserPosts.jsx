@@ -7,7 +7,6 @@ import PostUpdateItem from './PostUpdateItem';
 
 function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null }) {
   const [currentUser, setCurrentUser] = useState(null);
-  console.log(currentUser);
   return (
     <>
       <CheckCurrentUser setCurrentUser={setCurrentUser} />

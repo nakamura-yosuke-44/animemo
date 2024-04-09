@@ -3,6 +3,10 @@ class User < ApplicationRecord
   has_many :uvisits
   has_many :shops, through: :viisits
 
+
+  has_one :profile
+  after_create :create_profile
+
   validates :name, presence: true
   validates :agreement_terms, acceptance: { accept: true, on: :create }
   # Include default devise modules. Others available are:
