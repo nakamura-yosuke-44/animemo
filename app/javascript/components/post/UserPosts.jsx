@@ -1,12 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PostModal from './PostModal';
 import CheckCurrentUser from '../../CheckCurrentUser';
 import PostDeleteItem from './PostDeleteItem';
 import PostUpdateItem from './PostUpdateItem';
+import LikeButton from '../like/LikeButton';
+import axios from 'axios';
+
 
 function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null }) {
   const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/current_user');
+        setCurrentUser(response.data);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get('/api/posts');
+      setUserPosts(response.data);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const reloadPosts = () => {
+    // ポスト情報を再読み込み
+    fetchPosts();
+  };
+
+  // currentUser オブジェクトが存在しない場合、または currentUser.following が存在しない場合は空の配列を代入する
+  const followingIds = currentUser?.following || [];
+
+  // 以下のコンポーネントの JSX を currentUser オブジェクトが存在することが保証された後に実行する
   return (
     <>
       <CheckCurrentUser setCurrentUser={setCurrentUser} />
@@ -23,13 +61,16 @@ function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null })
                 <div className="card-body">
                   <div className="card-title">{post.title}</div>
                   <p>{post.body}</p>
+                  <div className='flex'>
                   <p>
                     by
                     {' '}
                     {post.user.name}
                   </p>
+                  {currentUser &&  <LikeButton postId={post.id} currentUser={currentUser} reloadPosts={reloadPosts} />}
+                  </div>
                   <div>
-                    { currentUser === post.user.id
+                    { currentUser && currentUser.id === post.user.id
                     && (
                     <div className="flex justify-end">
                       <div className="mx-3">
