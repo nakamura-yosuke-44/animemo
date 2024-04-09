@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       get 'posts', to: 'profiles/posts#index'
     end
 
+    resources :likes, only: [:create, :destroy]
+
     resources :shops, only: %i[index show] do
       collection do
         get 'search'

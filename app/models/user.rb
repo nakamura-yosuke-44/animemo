@@ -3,6 +3,9 @@ class User < ApplicationRecord
   has_many :uvisits
   has_many :shops, through: :viisits
 
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :posts
+
 
   has_one :profile
   after_create :create_profile

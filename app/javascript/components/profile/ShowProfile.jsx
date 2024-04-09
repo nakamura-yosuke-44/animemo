@@ -36,7 +36,7 @@ const ProfileCard = ({ profileId }) => {
   return (
     <>
       <CheckCurrentUser setCurrentUser={setCurrentUser} />
-      <div className="flex flex-col items-center mt-4">
+      <div className="flex flex-col items-center">
         <div className="max-w-md mb-8">
           <div className="bg-white shadow-md rounded-lg overflow-hidden p-6">
             {profile ? (
