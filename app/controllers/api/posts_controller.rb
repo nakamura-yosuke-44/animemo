@@ -20,10 +20,10 @@ class Api::PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
+    if post.update(post_params)
       render json: { message: '投稿内容を更新しました。' }, status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: post.errors, status: :unprocessable_entity
     end
   end
 
