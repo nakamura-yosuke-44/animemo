@@ -89,3 +89,5 @@ gem 'dotenv-rails', '~> 3.1'
 gem 'carrierwave', '~> 3.0', '>= 3.0.7'
 gem 'mini_magick', '~> 4.12'
 gem 'geocoder', '~> 1.8', '>= 1.8.2'
+gem 'fog-aws'
+gem "aws-sdk-s3", require: false 

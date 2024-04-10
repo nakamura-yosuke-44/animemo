@@ -94,5 +94,16 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  config.action_view.preload_links_header = false
+  
+    config.action_mailer.default_url_options = { protocol: 'http'}
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+    port: 587,
+    address:"kodoguruapp.gmail.com",
+    domain: 'gmail.com', #Gmailを使う場合
+    user_name: ENV['EMAIL'], #Gmailアカウントのメールアドレス
+    password: ENV['APP_PASSWORD'], #Gmailで設定したアプリパスワード
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
 end
