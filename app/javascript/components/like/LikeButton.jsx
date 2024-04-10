@@ -34,7 +34,7 @@ const LikeButton = ({ postId, currentUser, reloadPosts }) => {
 
   return (
     <>
-    {liked ? <FcLikePlaceholder onClick={handleLike} /> : <FcLike onClick={handleLike} />}
+    {liked ? <FcLike onClick={handleLike} /> : <FcLikePlaceholder onClick={handleLike} />}
   </>
   );
 };

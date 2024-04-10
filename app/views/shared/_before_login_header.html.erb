@@ -12,7 +12,7 @@
           <li><%= link_to "アカウント作成", new_user_registration_path %></li>
           <li><%= link_to "ログイン", new_user_session_path %></li>
           <li><%= link_to "店舗検索", shops_path %></li>
-          <li><%= link_to("みんなの新着投稿", '#') %></li>
+          <li><%= link_to("みんなの新着投稿", posts_path) %></li>
           <li><%= link_to("機能について", '#') %></li>
         </ul>
       </div>
@@ -20,7 +20,7 @@
   </div>
   <div class="flex-1">
     <%= link_to root_path do %>
-      <span class="text-xl text-white">こどぐるサーチ</span>
+      <span class="text-white">こどぐるサーチ</span>
     <% end %>
   </div>
 </header>
