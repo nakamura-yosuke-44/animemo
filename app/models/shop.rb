@@ -1,4 +1,5 @@
 class Shop < ApplicationRecord
+
   has_many :story_shops
   has_many :stories, through: :story_shops
 
@@ -11,4 +12,15 @@ class Shop < ApplicationRecord
   scope :by_prefecture, ->(prefecture) { where('prefecture LIKE ?', "#{prefecture}%") }
   scope :by_season, ->(season) { joins(:stories).where('stories.season': season) }
   scope :by_municipalities, ->(municipalities) { where('municipalities LIKE ?', "%#{municipalities}%") }
+
+  
+
+  scope :by_municipalities, ->(municipalities) { where('municipalities LIKE ?', "%#{municipalities}%") }
+
+  geocoded_by :full_address
+  after_validation :geocode
+
+  def full_address
+    "#{prefecture} #{municipalities} #{street_address}"
+  end
 end
