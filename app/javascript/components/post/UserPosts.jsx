@@ -92,6 +92,7 @@ function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null })
   );
 }
 
+
 UserPosts.propTypes = {
   userPosts: PropTypes.arrayOf(
     PropTypes.shape({

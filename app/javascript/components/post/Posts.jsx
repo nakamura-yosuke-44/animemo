@@ -23,7 +23,7 @@ function Posts() {
         {posts !== null ? (
           <div className="mx-4 mt-12 flex items-center justify-center">
             <div>
-              <div className=" border-blackflex flex-col items-center justify-center sm:text-base ">
+              <div className=" border-blackflex flex-col items-center justify-center sm:text-base">
                 {posts.map((post) => (
                   <div className="card my-4 w-96 bg-base-100 shadow-xl" key={post.id}>
                     <figure><img src={post.image.url} /></figure>

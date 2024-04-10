@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
 function ProfileModal({ profile = { avatar: null, bio: null }, setProfile = () => {} }) {
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState(profile?.avatar);
   const [bio, setBio] = useState(profile?.bio);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,12 +28,18 @@ function ProfileModal({ profile = { avatar: null, bio: null }, setProfile = () =
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
-    setAvatar(file);
+    if (file) {
+      setAvatar(file);
+    }
+  };
+
+  const handleBioChange = (e) => {
+    setBio(e.target.value); // 自己紹介の値を更新する
   };
 
   return (
     <div>
-      <button type="button" className=" rounded bg-blue-500 p-1 text-xs font-bold text-white hover:bg-blue-700" onClick={() => setShowModal(true)}>
+      <button type="button" className="ml-3 rounded bg-blue-500 p-1 text-xs font-bold text-white hover:bg-blue-700" onClick={() => setShowModal(true)}>
         プロフィール編集
       </button>
       {showModal && (
@@ -46,9 +51,9 @@ function ProfileModal({ profile = { avatar: null, bio: null }, setProfile = () =
                 <label htmlFor="avatar" className="mt-2 block">アバターを選択:</label>
                 <input id="avatar" type="file" onChange={handleAvatarChange} className="block w-full rounded-md border border-black p-2" />
               </div>
-              <div className="mb-4 ">
+              <div className="mb-4">
                 <label htmlFor="bio" className="block">自己紹介</label>
-                <textarea id="bio" value={bio} onChange={(e) => setBio(e.target.value)} className="block flex-1 rounded-md border border-black p-2" />
+                <textarea id="bio" value={bio} onChange={handleBioChange} className="block w-full rounded-md border border-black p-2" />
               </div>
               <div className="flex justify-end">
                 <button type="submit" className="btn btn-accent">更新</button>

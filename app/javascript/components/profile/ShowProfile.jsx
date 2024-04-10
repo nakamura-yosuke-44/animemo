@@ -46,9 +46,9 @@ const ProfileCard = ({ profileId }) => {
                 <h2 className="text-xl font-semibold">{profUser.name}</h2>
                 <p className="text-gray-600">{profile.bio || 'No bio available'}</p>
               </div>
+              { currentUser === profile.id &&
               <ProfileModal setProfile={setProfile} profile={profile} />
-              {/* relationshipIdをFollowButtonコンポーネントに渡す */}
-              
+              }
             </div>
             
             ) : (
