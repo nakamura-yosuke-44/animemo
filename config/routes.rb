@@ -14,16 +14,14 @@ Rails.application.routes.draw do
     end
 
     resources :likes, only: [:create, :destroy]
-
     resources :shops, only: %i[index show] do
       collection do
         get 'search'
+        post :nearest
       end
     end
     resource :current_user, only: %i[show]
-
     resources :relationships, only: [:create, :destroy]
-
     resources :visits, only: %i[show update], param: :user_id
   end
 

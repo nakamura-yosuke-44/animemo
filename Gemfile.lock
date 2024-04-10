@@ -141,6 +141,7 @@ GEM
     faker (3.3.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
+    geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -406,6 +407,7 @@ DEPENDENCIES
   dotenv-rails (~> 3.1)
   factory_bot_rails (~> 6.4, >= 6.4.3)
   faker (~> 3.3, >= 3.3.1)
+  geocoder (~> 1.8, >= 1.8.2)
   jbuilder
   jsbundling-rails
   letter_opener_web (~> 2.0)

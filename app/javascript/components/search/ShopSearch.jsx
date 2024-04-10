@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import SearchForm from './SearchForm';
 import SwitchSearchButton from './SwitchSearchButton';
+import NearestPlace from '../geocorde/NearestPlace';
 
 function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
   const [season, setSeason] = useState('Season1');
@@ -63,6 +64,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
       <div className="flex mt-4">
         <SwitchSearchButton />
       </div>
+      <NearestPlace /> 
       <div className="flex flex-col">
         <div className="flex justify-end">
           <SearchForm
