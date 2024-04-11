@@ -96,7 +96,6 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
     config.action_mailer.default_url_options = { host: Settings.host }
-    host = 'samplehost'
     Rails.application.routes.default_url_options[:host] = Settings.host
   
     config.action_mailer.default_url_options = { protocol: 'https'}
