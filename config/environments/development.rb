@@ -83,20 +83,10 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
   
-  config.action_mailer.default_url_options = { host: Settings.host }
-
   config.action_mailer.perform_deliveries = true
   config.action_view.preload_links_header = false
 
-  config.action_mailer.default_url_options = { protocol: 'http'}
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-    port: 587,
-    address:"kodoguruapp.gmail.com",
-    domain: 'gmail.com', #Gmailを使う場合
-    user_name: ENV['EMAIL'], #Gmailアカウントのメールアドレス
-    password: ENV['APP_PASSWORD'], #Gmailで設定したアプリパスワード
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
+  config.action_mailer.default_url_options = { host: Settings.host}
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :letter_opener  
 end
