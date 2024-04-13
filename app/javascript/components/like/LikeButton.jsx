@@ -9,10 +9,10 @@ const LikeButton = ({ postId, currentUser, reloadPosts }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (currentUser && currentUser.likes) {
+    if (currentUser.id && currentUser.likes) {
       setLiked(currentUser.likes.includes(postId));
     }
-  }, [currentUser, postId]);
+  }, []);
 
   const handleLike = async () => {
     if (loading) return;
@@ -24,7 +24,7 @@ const LikeButton = ({ postId, currentUser, reloadPosts }) => {
         await axios.post(`/api/likes`, { post_id: postId });
       }
       setLiked(!liked);
-      reloadPosts(); // ポストの再読み込み
+      reloadPosts();
     } catch (error) {
       console.error('Error toggling like:', error);
     } finally {
