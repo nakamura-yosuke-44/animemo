@@ -35,7 +35,14 @@ module.exports = {
       'no-inner-declarations': 'warn',
       'import/prefer-default-export': 'warn',
       'jsx-a11y/no-noninteractive-element-interactions': 'warn',
-      'react/require-default-props': 'off'
+      'react/require-default-props': 'off',
+      'jsx-a11y/label-has-associated-control': ['error', {
+        labelComponents: [],
+        labelAttributes: [],
+        controlComponents: [],
+        assert: 'either',
+        depth: 25
+      }],
     }
   };
   

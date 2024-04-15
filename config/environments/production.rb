@@ -27,7 +27,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -37,7 +37,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :amazom
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -95,15 +95,18 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-    config.action_mailer.default_url_options = { protocol: 'https', host: Settings.host}
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
+  config.action_mailer.perform_deliveries = true
+  config.action_view.preload_links_header = false
+  config.action_mailer.default_url_options = { protocol: 'https', host: Settings.host}
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
     port: 587,
-    address:"kodoguruapp.gmail.com",
-    domain: 'gmail.com', #Gmailを使う場合
-    user_name: ENV['EMAIL'], #Gmailアカウントのメールアドレス
-    password: ENV['APP_PASSWORD'], #Gmailで設定したアプリパスワード
-    authentication: :plain,
+    address: 'smtp.gmail.com',
+    domain: 'smtp.gmail.com',
+    user_name: ENV['EMAIL'], 
+    password: ENV['APP_PASSWORD'], 
+    authentication: 'plain',
     enable_starttls_auto: true
   }
 end

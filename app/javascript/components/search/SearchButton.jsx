@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function SearchButton({switchSearchButton , setSwitchSearchButton}) {
+function SearchButton({ switchSearchButton, setSwitchSearchButton }) {
   return (
     <div>
       <button
@@ -20,5 +21,10 @@ function SearchButton({switchSearchButton , setSwitchSearchButton}) {
     </div>
   );
 }
+
+SearchButton.propTypes = {
+  setSwitchSearchButton: PropTypes.func,
+  switchSearchButton: PropTypes.string,
+};
 
 export default SearchButton;

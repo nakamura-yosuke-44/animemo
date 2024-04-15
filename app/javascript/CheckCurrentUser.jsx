@@ -7,7 +7,6 @@ function CheckCurrentUser({ setCurrentUser = () => {} }) {
     axios.get('/api/current_user')
       .then((response) => {
         setCurrentUser(response.data);
-        console.log(response);
       })
       .catch((error) => {
         console.error('Error fetching current user:', error);

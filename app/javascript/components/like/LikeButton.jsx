@@ -1,42 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FcLike, FcLikePlaceholder } from 'react-icons/fc';
+import PropTypes from 'prop-types';
 
 axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-const LikeButton = ({ postId, currentUser, reloadPosts }) => {
+function LikeButton({ post = null, currentUser = null, reloadPosts = () => {} }) {
   const [liked, setLiked] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     if (currentUser && currentUser.likes) {
-      setLiked(currentUser.likes.includes(postId));
+      setLiked(currentUser.likes.some((like) => like.post_id === post.id));
     }
-  }, [currentUser, postId]);
+  }, []);
 
   const handleLike = async () => {
-    if (loading) return;
-    setLoading(true);
     try {
       if (liked) {
-        await axios.delete(`/api/likes/${postId}`);
+        await axios.delete(`/api/likes/${post.id}`);
       } else {
-        await axios.post(`/api/likes`, { post_id: postId });
+        await axios.post('/api/likes', { postId: post.id });
       }
       setLiked(!liked);
-      reloadPosts(); // ポストの再読み込み
+      reloadPosts();
     } catch (error) {
       console.error('Error toggling like:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <>
-    {liked ? <FcLike onClick={handleLike} /> : <FcLikePlaceholder onClick={handleLike} />}
-  </>
+    <div className="flex items-center">
+      <p className="mx-1">
+        {liked ? <FcLike onClick={handleLike} /> : <FcLikePlaceholder onClick={handleLike} />}
+      </p>
+      <p>
+        {post.likes ? post.likes.length : 0}
+      </p>
+    </div>
   );
+}
+
+LikeButton.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    user_id: PropTypes.number.isRequired,
+    shop_id: PropTypes.number.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alt: PropTypes.string,
+    }),
+  }),
+  reloadPosts: PropTypes.func,
+  currentUser: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }),
 };
 
 export default LikeButton;

@@ -5,17 +5,21 @@ class Api::PostsController < ApplicationController
   before_action :authorize_user!, only: [:update, :destroy]
 
   def index
-    posts = Post.all.includes(:user, :shop)
-    render json: posts, include: { user: {}, shop: {} }
+    posts = Post.includes({ user: { profile: {} } }, :shop, :likes)
+    render json: posts, include: {
+      user: { include: :profile },
+      shop: {},
+      likes: {}
+    }, status: :ok
   end
-  
+
   def create
     post = current_user.posts.build(post_params)
 
     if post.save
       render json: post, status: :created
     else
-      render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
+      render json: post.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -23,14 +27,16 @@ class Api::PostsController < ApplicationController
     if @post.update(post_params)
       render json: { message: '投稿内容を更新しました。' }, status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post.errors.full_messages, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @post.destroy
-    head :no_content
-    nil
+    if @post.destroy
+      render json: { message: '削除しました。' }, status: :ok
+    else
+      render json: @post.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   private

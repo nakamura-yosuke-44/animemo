@@ -18,14 +18,14 @@ function SearchForm({
   const [isMuniFocus, setIsMuniFocus] = useState(false);
 
   return (
-    <div className="m-4 flex items-center justify-center">
-      <div className="relative mr-2 border border-black">
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="relative">
         <input
           id="seasonInput"
           name="seasonInput"
           type="text"
           readOnly
-          className="w-[150px] pl-2"
+          className="max-w-36 border border-black pl-2"
           placeholder="シーズン"
           value={season}
           onClick={() => setIsSessionFocus(true)}
@@ -33,7 +33,7 @@ function SearchForm({
           onBlur={() => setTimeout(() => { setIsSessionFocus(false); }, 200)} // onChangeを先に処理させる
         />
         {isSessionFocus && (
-          <span id="autocomplete" className="menu absolute z-50 size-40 overflow-auto border bg-white">
+          <span id="autocomplete" className="menu absolute z-50 w-36 overflow-auto border bg-white">
             <ul>
               {choicesSeason.map((seasonChoice) => (
                 <li // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
@@ -53,12 +53,12 @@ function SearchForm({
           </span>
         )}
       </div>
-      <div className="relative mx-2 border border-black">
+      <div className="relative">
         <input
           id="nameInput"
           name="nameInput"
           type="text"
-          className="pl-2"
+          className="max-w-36 border border-black pl-2"
           placeholder="店舗名"
           value={name}
           onClick={() => setIsNameFocus(true)}
@@ -66,7 +66,7 @@ function SearchForm({
           onBlur={() => setTimeout(() => { setIsNameFocus(false); }, 200)} // onChangeを先に処理させる
         />
         {isNameFocus && (
-          <span id="autocomplete" className="menu absolute z-50 size-40 overflow-auto border bg-white">
+          <span id="autocomplete" className="menu absolute z-50 size-36 overflow-auto border bg-white">
             <ul>
               {resultNameArr.map((nameObj) => (
                 <li
@@ -87,12 +87,12 @@ function SearchForm({
         )}
       </div>
 
-      <div className="relative mx-2 border border-black">
+      <div className="relative">
         <input
           id="prefectureInput"
           name="prefectureInput"
           type="text"
-          className="w-[100px] pl-2"
+          className="max-w-36 border border-black pl-2"
           placeholder="都道府県"
           value={prefecture}
           onClick={() => setIsPrefectureFocus(true)}
@@ -100,7 +100,7 @@ function SearchForm({
           onBlur={() => setTimeout(() => { setIsPrefectureFocus(false); }, 200)} // onChangeを先に処理させる
         />
         {isPrefectureFocus && (
-          <span id="autocomplete" className="menu absolute z-50 size-40 overflow-auto border bg-white">
+          <span id="autocomplete" className="menu absolute z-50 size-36 overflow-auto border bg-white">
             <ul>
               {choicesPrefecture.map((prefectureChoice) => (
                 <li
@@ -120,12 +120,12 @@ function SearchForm({
           </span>
         )}
       </div>
-      <div className="relative mx-2 border border-black">
+      <div className="relative">
         <input
           id="muniInput"
           name="muniInput"
           type="text"
-          className="w-[150px] pl-2"
+          className="max-w-36 border border-black pl-2"
           placeholder="市区町村"
           value={municipalities}
           onClick={() => setIsMuniFocus(true)}
@@ -133,7 +133,7 @@ function SearchForm({
           onBlur={() => setTimeout(() => { setIsMuniFocus(false); }, 200)} // onChangeを先に処理させる
         />
         {isMuniFocus && (
-          <span id="autocomplete" className="menu absolute z-50 size-40 overflow-auto border bg-white">
+          <span id="autocomplete" className="menu absolute z-50 size-36 overflow-auto border bg-white">
             <ul>
               {resultMuniArr.map((muni) => (
                 <li

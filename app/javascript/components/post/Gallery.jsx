@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import ImageModal from './ImageModal';
 
 function Gallery({ userPosts }) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setShowModal(true);
+  };
+
   return (
     <div className="mt-12">
+      {showModal && selectedImage && (
+        <ImageModal image={selectedImage} onClose={() => setShowModal(false)} />
+      )}
       <div className="mb-5 mt-4 text-center text-xl">写真ギャラリー</div>
-      <div className="grid grid-cols-3 gap-4 sm:grid-cols-4">
+      <div className="grid grid-cols-3 place-items-center gap-4 sm:grid-cols-4">
         {userPosts.map((post) => (
+          post.image.url.includes('no_image')
+          || (
           <div key={`post_${post.id}`}>
-            <div>
-              <img src={post.image.url} alt={`Image ${post.id}`} />
+            <div onClick={() => handleImageClick(post.image)}>
+              <img src={post.image.url} alt="投稿画像" />
             </div>
           </div>
+          )
         ))}
       </div>
     </div>

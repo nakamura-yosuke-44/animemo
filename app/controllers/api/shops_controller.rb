@@ -10,7 +10,7 @@ class Api::ShopsController < ApplicationController
 
   def search
     shops = if params[:season] == "全シーズン"
-              Shop.all
+              Shop.includes(:stories)
             else
               Shop.includes(:stories).by_season(params[:season])
             end
@@ -21,12 +21,15 @@ class Api::ShopsController < ApplicationController
   end
 
   def show
-    shop = Shop.includes(posts: :user).find_by(id: params[:id])
+    shop = Shop.includes(posts: [{ user: :profile }, :likes], stories: {}).find_by(id: params[:id])
 
     if shop
-      render json: shop, include: { posts: { include: :user }, stories: {} }
+      render json: shop, include: {
+        posts: { include: [{ user: { include: :profile } }, :likes] },
+        stories: {}
+      }, status: :ok
     else
-      render json: { error: '店舗が見つかりませんでした' }, status: :unprocessable_entity
+      render json: { error: '店舗が見つかりませんでした' }, status: :not_found
     end
   end
 

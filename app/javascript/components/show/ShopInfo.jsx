@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import UserPosts from '../post/UserPosts';
+import ShopPosts from '../post/ShopPosts';
 import Gallery from '../post/Gallery';
 import VisitSelect from '../visit/VisitSelect';
 import CheckCurrentUser from '../../CheckCurrentUser';
@@ -10,11 +10,12 @@ function ShopInfo({ shopId = '' }) {
   const [shop, setShop] = useState(null);
   const [iflame, setIflame] = useState('');
   const [userPosts, setUserPosts] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null);
   const fetchShop = async () => {
     try {
       const response = await axios.get(`/api/shops/${shopId}`);
       const { data } = response;
+      console.log(data);
       setShop(data);
       const orderPosts = data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);
@@ -28,9 +29,10 @@ function ShopInfo({ shopId = '' }) {
       console.error('店舗情報の取得エラー:', error);
     }
   };
+
   useEffect(() => {
     fetchShop();
-  }, [shopId]);
+  }, []);
 
   return (
     <>
@@ -39,7 +41,7 @@ function ShopInfo({ shopId = '' }) {
         <div className="container mx-auto">
           { shop !== null ? (
             <>
-              {currentUser && <VisitSelect shopId={shopId} currentUser={currentUser}/>}
+              {currentUser && <VisitSelect shopId={shopId} currentUser={currentUser} />}
               <div className="text-sm sm:text-base">
                 <div className="mt-4 flex w-full">
                   <div className="flex w-full max-sm:flex-1 max-sm:flex-col">
@@ -120,11 +122,11 @@ function ShopInfo({ shopId = '' }) {
                   </div>
                 </div>
               </div>
-              <div className="mt-10 mx-auto max-w-screen-lg"> {/* 中央揃えと最大幅指定 */}
-                <UserPosts userPosts={userPosts} setUserPosts={setUserPosts} shopId={shopId} />
-              </div>
               <div className="mt-10">
                 <Gallery userPosts={userPosts} />
+              </div>
+              <div className="mx-auto mt-10 max-w-screen-lg">
+                <ShopPosts userPosts={userPosts} setUserPosts={setUserPosts} shopId={shopId} currentUser={currentUser} />
               </div>
             </>
           ) : (
@@ -138,7 +140,7 @@ function ShopInfo({ shopId = '' }) {
       </div>
     </>
   );
-          }        
+}
 ShopInfo.propTypes = {
   shopId: PropTypes.string,
 };

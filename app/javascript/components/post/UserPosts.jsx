@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import PostModal from './PostModal';
-import CheckCurrentUser from '../../CheckCurrentUser';
-import PostDeleteItem from './PostDeleteItem';
-import PostUpdateItem from './PostUpdateItem';
-import LikeButton from '../like/LikeButton';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import CheckCurrentUser from '../../CheckCurrentUser';
+import PostUpdateItem from './PostUpdateItem';
+import PostDeleteItem from './PostDeleteItem';
+import LikeButton from '../like/LikeButton';
+import PostBodyModal from './PostBodyModal';
 
-
-function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null }) {
+function UserPosts({ userName = '' }) {
+  const [posts, setPosts] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get('/api/current_user');
-        setCurrentUser(response.data);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-    fetchUser();
-  }, []);
-
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('/api/posts');
-      setUserPosts(response.data);
+      const response = await axios.get(`/api/profiles/${userName}/posts`);
+      const { data } = response;
+      const orderPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      setPosts(orderPosts);
+      console.log(orderPosts);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      alert('投稿情報を取得できませんでした');
+      console.error('投稿情報の取得エラー:', error);
     }
   };
 
@@ -37,78 +28,66 @@ function UserPosts({ userPosts = null, setUserPosts = () => {}, shopId = null })
   }, []);
 
   const reloadPosts = () => {
-    // ポスト情報を再読み込み
     fetchPosts();
   };
 
-  // currentUser オブジェクトが存在しない場合、または currentUser.following が存在しない場合は空の配列を代入する
-  const followingIds = currentUser?.following || [];
-
-  // 以下のコンポーネントの JSX を currentUser オブジェクトが存在することが保証された後に実行する
   return (
     <>
       <CheckCurrentUser setCurrentUser={setCurrentUser} />
-      <div className="flex pl-10 pt-10">
-        <div className="text-xl">みんなの投稿</div>
-        {currentUser && <PostModal setUserPosts={setUserPosts} shopId={shopId} />}
-      </div>
-      <div className="mx-4 mt-12 flex items-center justify-center">
-        <div>
-          <div className=" border-blackflex flex-col items-center justify-center sm:text-base ">
-            {userPosts.map((post) => (
-              <div className="card my-4 w-96 bg-base-100 shadow-xl" key={post.id}>
-                <figure><img src={post.image.url} /></figure>
-                <div className="card-body">
-                  <div className="card-title">{post.title}</div>
-                  <p>{post.body}</p>
-                  <div className='flex'>
-                  <p>
-                    by
-                    {' '}
-                    {post.user.name}
-                  </p>
-                  {currentUser &&  <LikeButton postId={post.id} currentUser={currentUser} reloadPosts={reloadPosts} />}
-                  </div>
-                  <div>
-                    { currentUser && currentUser.id === post.user.id
-                    && (
-                    <div className="flex justify-end">
-                      <div className="mx-3">
-                        <PostDeleteItem post={post} setUserPosts={setUserPosts} />
-                      </div>
-                      <div className="mx-3">
-                        <PostUpdateItem post={post} setUserPosts={setUserPosts} />
+      {posts && posts.length > 0 ? (
+        <>
+          <p className="mt-4 text-xl">
+            {userName}
+            さんの投稿：
+            {posts.length}
+            件
+          </p>
+          <div className="m-4">
+            <div className="flex w-full">
+              <div className="grid flex-auto grid-cols-1 place-items-center gap-6 sm:grid-cols-3">
+                {posts.map((post) => (
+                  <div className="card max-w-xs bg-base-100 sm:max-w-sm" key={post.id}>
+                    <figure><img src={post.image.url} alt="投稿写真" /></figure>
+                    <div className="card-body">
+                      <div className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${post.shop?.id}`}>{post.shop?.name}</a></div>
+                      <div className="card-title">{post.title}</div>
+                      <PostBodyModal post={post} />
+                      <p>{(post.created_at).split('T')[0]}</p>
+                      <div className="flex items-center justify-end">
+                        { currentUser && currentUser.id === post.user_id && (
+                          <>
+                            <div className="mx-4">
+                              <PostUpdateItem post={post} setUserPosts={setPosts} />
+                            </div>
+                            <div className="mx-4">
+                              <PostDeleteItem post={post} reloadPosts={reloadPosts} />
+                            </div>
+                          </>
+                        )}
+                        {
+                          currentUser && (
+                            <div>
+                              <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
+                            </div>
+                          )
+                        }
                       </div>
                     </div>
-                    )}
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <p>投稿はありません</p>
+      )}
     </>
   );
 }
 
-
 UserPosts.propTypes = {
-  userPosts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      user_id: PropTypes.number.isRequired,
-      shop_id: PropTypes.number.isRequired,
-      image: PropTypes.shape({
-        url: PropTypes.string.isRequired,
-        alt: PropTypes.string,
-      }).isRequired,
-    }).isRequired,
-  ).isRequired,
-  setUserPosts: PropTypes.func,
-  shopId: PropTypes.string,
+  userName: PropTypes.string,
 };
 
 export default UserPosts;

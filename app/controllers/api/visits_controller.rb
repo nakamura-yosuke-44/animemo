@@ -3,7 +3,11 @@ class Api::VisitsController < ApplicationController
 
   def show
     visit = Visit.find_by(user_id: params[:user_id], shop_id: params[:shop_id])
-    render json: { status: visit&.status }
+    if visit
+      render json: { status: visit.status }
+    else
+      render json: { status: '' }
+    end
   end
 
   def update
