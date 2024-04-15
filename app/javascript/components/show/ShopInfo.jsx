@@ -15,6 +15,7 @@ function ShopInfo({ shopId = '' }) {
     try {
       const response = await axios.get(`/api/shops/${shopId}`);
       const { data } = response;
+      console.log(data)
       setShop(data);
       const orderPosts = data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);

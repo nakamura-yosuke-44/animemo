@@ -5,8 +5,12 @@ class Api::PostsController < ApplicationController
   before_action :authorize_user!, only: [:update, :destroy]
 
   def index
-    posts = Post.includes(:user, :shop, :likes)
-    render json: posts, include: [:user, :shop, :likes], status: :ok
+    posts = Post.includes({ user: { profile: {} } }, :shop, :likes)
+    render json: posts, include: { 
+      user: { include: :profile },
+      shop: {},
+      likes: {}
+    }, status: :ok
   end
   
   def create

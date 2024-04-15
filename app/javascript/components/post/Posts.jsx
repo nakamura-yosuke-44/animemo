@@ -4,6 +4,7 @@ import CheckCurrentUser from "../../CheckCurrentUser";
 import PostUpdateItem from "./PostUpdateItem";
 import PostDeleteItem from "./PostDeleteItem";
 import LikeButton from "../like/LikeButton";
+import PostBodyModal from './PostBodyModal';
 
 function Posts() {
   const [posts, setPosts] = useState(null)
@@ -42,13 +43,10 @@ function Posts() {
                     <div className="card-body">
                       <div className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${post.shop?.id}`}>{post.shop?.name}</a></div>
                       <div className="card-title">{post.title}</div>
-                      <p>{post.body}</p>
+                      <PostBodyModal post={post} />
                       <div className='flex'>
-                        <p>
-                          投稿者:
-                          {' '}
-                          {post.user.name}
-                        </p>
+                        <img src={post.user.profile && post.user.profile.avatar.url } alt="Avatar" className="object-cover w-12 h-12 rounded-full" />
+                        <p className='ml-2 flex justify-start items-center'>{post.user.name}</p>
                       </div>
                       <p>{(post.created_at).split('T')[0]}</p>
                       <div className='flex items-center justify-end'>

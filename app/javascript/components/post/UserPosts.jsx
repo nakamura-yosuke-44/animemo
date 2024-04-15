@@ -4,6 +4,7 @@ import CheckCurrentUser from "../../CheckCurrentUser";
 import PostUpdateItem from "./PostUpdateItem";
 import PostDeleteItem from "./PostDeleteItem";
 import LikeButton from "../like/LikeButton";
+import PostBodyModal from "./PostBodyModal";
 
 function UserPosts({userName=''}) {
   const [posts, setPosts] = useState(null)
@@ -44,14 +45,7 @@ function UserPosts({userName=''}) {
                       <div className="card-body">
                         <div className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${post.shop?.id}`}>{post.shop?.name}</a></div>
                         <div className="card-title">{post.title}</div>
-                        <p>{post.body}</p>
-                        <div className='flex'>
-                          <p>
-                            投稿者:
-                            {' '}
-                            {post.user.name}
-                          </p>
-                        </div>
+                        <PostBodyModal post={post} />
                         <p>{(post.created_at).split('T')[0]}</p>
                         <div className='flex items-center justify-end'>
                           { currentUser && currentUser.id === post.user_id && (
