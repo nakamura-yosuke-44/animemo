@@ -12,7 +12,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   else
     storage :file
   end
-  
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -24,7 +24,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  
 
   # Process files as they are uploaded:
   # process scale: [200, 300]

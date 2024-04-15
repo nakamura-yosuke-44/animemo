@@ -8,11 +8,11 @@ Rails.application.routes.draw do
     get 'current_user', to: 'current_users#show'
     get 'my_list', to: 'my_pages#my_list'
     resources :posts
-    
+
     get '/profiles/:user_name', to: 'profiles#show', as: 'profile'
     put '/profiles/:user_name', to: 'profiles#update'
     get '/profiles/:user_name/posts', to: 'profiles#user_posts'
-    
+
     resources :likes, only: [:create, :destroy]
     resources :shops, only: %i[index show] do
       collection do
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :visits, only: %i[show update], param: :user_id
   end
 
-  devise_for :users, controllers: { 
+  devise_for :users, controllers: {
     omniauth_callbacks: 'omniauth_callbacks',
     registrarions: 'users/registrations'
   }

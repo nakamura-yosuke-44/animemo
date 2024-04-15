@@ -9,16 +9,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  # GET /resource/edit
+  def edit
+    super
+  end
+
   # POST /resource
   def create
     super
     resource.build_profile
     resource.save
-  end
-
-  # GET /resource/edit
-  def edit
-    super
   end
 
   # PUT /resource
@@ -45,7 +45,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
   #  devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-  #end
+  # end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

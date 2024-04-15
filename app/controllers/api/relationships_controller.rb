@@ -18,7 +18,7 @@ class Api::RelationshipsController < ApplicationController
     @users = user.followed_users
     render json: @users, status: :ok
   end
-  
+
   # フォロワー一覧
   def followers
     user = User.find(params[:user_id])

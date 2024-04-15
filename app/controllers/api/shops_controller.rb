@@ -22,11 +22,11 @@ class Api::ShopsController < ApplicationController
 
   def show
     shop = Shop.includes(posts: [{ user: :profile }, :likes], stories: {}).find_by(id: params[:id])
-  
+
     if shop
-      render json: shop, include: { 
-      posts: { include: [{ user: { include: :profile }}, :likes] },
-      stories: {}
+      render json: shop, include: {
+        posts: { include: [{ user: { include: :profile } }, :likes] },
+        stories: {}
       }, status: :ok
     else
       render json: { error: '店舗が見つかりませんでした' }, status: :not_found

@@ -6,13 +6,13 @@ class Api::PostsController < ApplicationController
 
   def index
     posts = Post.includes({ user: { profile: {} } }, :shop, :likes)
-    render json: posts, include: { 
+    render json: posts, include: {
       user: { include: :profile },
       shop: {},
       likes: {}
     }, status: :ok
   end
-  
+
   def create
     post = current_user.posts.build(post_params)
 

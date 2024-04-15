@@ -2,18 +2,17 @@ class Api::ProfilesController < ApplicationController
   skip_before_action :authenticate_user! # deviseのメソッドをスキップ
   before_action :set_profile, only: [:update, :show]
   before_action :authorize_user!, only: [:update]
-  
-  
+
+  def show
+    render json: { profile: @profile, user_name: params[:user_name] }, status: :ok
+  end
+
   def update
     if @profile.update(profile_params)
       render json: @profile, status: :ok
     else
       render json: @profile.errors.full_messages, status: :unprocessable_entity
     end
-  end
-
-  def show
-    render json: {profile: @profile, user_name: params[:user_name]}, status: :ok
   end
 
   def user_posts
@@ -30,7 +29,7 @@ class Api::ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:avatar, :bio) 
+    params.require(:profile).permit(:avatar, :bio)
   end
 
   def authorize_user!
