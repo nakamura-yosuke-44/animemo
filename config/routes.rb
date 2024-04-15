@@ -4,15 +4,15 @@ Rails.application.routes.draw do
   root "top#top"
   resources :shops, only: %i[index show]
   resources :posts, only: %i[index]
-  resources :profiles, only: %i[show]
   namespace :api do
-    get 'current_user/show'
+    get 'current_user', to: 'current_users#show'
     get 'my_list', to: 'my_pages#my_list'
     resources :posts
-    resources :profiles, only: [:show, :update] do
-      get 'posts', to: 'profiles/posts#index'
-    end
-
+    
+    get '/profiles/:user_name', to: 'profiles#show', as: 'profile'
+    put '/profiles/:user_name', to: 'profiles#update'
+    get '/profiles/:user_name/posts', to: 'profiles#user_posts'
+    
     resources :likes, only: [:create, :destroy]
     resources :shops, only: %i[index show] do
       collection do
@@ -26,7 +26,8 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: { 
-    omniauth_callbacks: 'omniauth_callbacks' 
+    omniauth_callbacks: 'omniauth_callbacks',
+    registrarions: 'users/registrations'
   }
 
   get 'privacy_policy', to: 'top#privacy_policy'
@@ -36,6 +37,7 @@ Rails.application.routes.draw do
 
   get 'my_list', to: 'my_pages#my_list'
 
+  get 'profiles/:user_name', to: 'profiles#show', as: :user_profile
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

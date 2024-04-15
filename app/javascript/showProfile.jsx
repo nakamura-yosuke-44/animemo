@@ -1,11 +1,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import ShowProfile from './components/profile/ShowProfile';
+import Profile from './components/profile/Profile';
 
 const mountNode = document.getElementById('profile');
+const userName = mountNode.dataset.userName
 const root = createRoot(mountNode);
-const path = window.location.pathname;
-const profileId = path.split('/').pop();
 root.render(
-  <ShowProfile profileId={profileId} />
+  <Profile userName={userName} />
 )

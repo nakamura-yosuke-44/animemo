@@ -6,8 +6,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :posts
 
-
-  has_one :profile
+  has_one :profile, dependent: :destroy
   after_create :create_profile
 
   validates :name, presence: true

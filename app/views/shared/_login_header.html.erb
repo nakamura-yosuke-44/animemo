@@ -12,7 +12,7 @@
           <li><%= link_to "店舗検索", shops_path %></li>
           <li><%= link_to("みんなの新着投稿", posts_path) %></li>
           ##<li><%= link_to("フォロー新着投稿", '#') %></li>##
-          <li><%= link_to("マイページ", profile_path(current_user.id)) %></li>
+          <li><%= link_to("マイページ", user_profile_path(current_user.name)) %></li>
           <li><%= link_to "マイリスト", my_list_path%></li>
           <li><%= link_to("機能について", '#') %></li>
         </ul>
