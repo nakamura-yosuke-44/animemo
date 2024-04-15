@@ -12,7 +12,7 @@ function PostDeleteItem({ post = {}, reloadPosts = () => {} }) {
       axios.delete(`/api/posts/${post.id}`)
         .then((response) => {
           alert(response.data.message);
-          reloadPosts()
+          reloadPosts();
         })
         .catch((error) => {
           console.error('Error deleting post:', error);
@@ -34,10 +34,11 @@ PostDeleteItem.propTypes = {
     user_id: PropTypes.number.isRequired,
     shop_id: PropTypes.number.isRequired,
     image: PropTypes.shape({
-      url: PropTypes.string.isRequired,
+      url: PropTypes.string,
       alt: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  reloadPosts: PropTypes.func,
 };
 
 export default PostDeleteItem;

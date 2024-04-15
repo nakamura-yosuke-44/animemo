@@ -6,4 +6,4 @@ const mountNode = document.getElementById('mylist');
 const root = createRoot(mountNode);
 root.render(
   <MyList />,
-)
+);

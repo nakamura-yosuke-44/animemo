@@ -10,12 +10,12 @@ function ShopInfo({ shopId = '' }) {
   const [shop, setShop] = useState(null);
   const [iflame, setIflame] = useState('');
   const [userPosts, setUserPosts] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null);
   const fetchShop = async () => {
     try {
       const response = await axios.get(`/api/shops/${shopId}`);
       const { data } = response;
-      console.log(data)
+      console.log(data);
       setShop(data);
       const orderPosts = data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);
@@ -41,7 +41,7 @@ function ShopInfo({ shopId = '' }) {
         <div className="container mx-auto">
           { shop !== null ? (
             <>
-              {currentUser && <VisitSelect shopId={shopId} currentUser={currentUser}/>}
+              {currentUser && <VisitSelect shopId={shopId} currentUser={currentUser} />}
               <div className="text-sm sm:text-base">
                 <div className="mt-4 flex w-full">
                   <div className="flex w-full max-sm:flex-1 max-sm:flex-col">
@@ -125,8 +125,8 @@ function ShopInfo({ shopId = '' }) {
               <div className="mt-10">
                 <Gallery userPosts={userPosts} />
               </div>
-              <div className="mt-10 mx-auto max-w-screen-lg">
-                <ShopPosts userPosts={userPosts} setUserPosts={setUserPosts} shopId={shopId} currentUser={currentUser}  />
+              <div className="mx-auto mt-10 max-w-screen-lg">
+                <ShopPosts userPosts={userPosts} setUserPosts={setUserPosts} shopId={shopId} currentUser={currentUser} />
               </div>
             </>
           ) : (
@@ -140,7 +140,7 @@ function ShopInfo({ shopId = '' }) {
       </div>
     </>
   );
-          }        
+}
 ShopInfo.propTypes = {
   shopId: PropTypes.string,
 };

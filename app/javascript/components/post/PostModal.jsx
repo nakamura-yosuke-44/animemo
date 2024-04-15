@@ -4,12 +4,12 @@ import axios from 'axios';
 
 axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-function PostModal({ shopId = '', reloadPosts=() => {} }) {
+function PostModal({ shopId = '', reloadPosts = () => {} }) {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
-  const [preview, setPreview] = useState('')
+  const [preview, setPreview] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ function PostModal({ shopId = '', reloadPosts=() => {} }) {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    setPreview(URL.createObjectURL(file))
+    setPreview(URL.createObjectURL(file));
   };
 
   const adjustTextareaHeight = () => {
@@ -63,13 +63,13 @@ function PostModal({ shopId = '', reloadPosts=() => {} }) {
               </div>
               <div className="mb-4">
                 <label htmlFor="body" className="block">内容</label>
-                <textarea id="body" value={body} onChange={(e) => { setBody(e.target.value); adjustTextareaHeight(); }} className="block w-full rounded-md border border-black p-2 resize-none" />
+                <textarea id="body" value={body} onChange={(e) => { setBody(e.target.value); adjustTextareaHeight(); }} className="block w-full resize-none rounded-md border border-black p-2" />
               </div>
               <div className="mb-4">
                 <label htmlFor="image" className="mt-2 block">画像を選択:</label>
                 <input id="image" type="file" onChange={handleImageChange} className="block w-full rounded-md border border-black p-2" />
               </div>
-              <div className='max-w-sm'>
+              <div className="max-w-sm">
                 {preview && <img src={preview} alt="画像プレビュー" />}
               </div>
               <div className="flex justify-end">
@@ -85,7 +85,7 @@ function PostModal({ shopId = '', reloadPosts=() => {} }) {
 
 PostModal.propTypes = {
   shopId: PropTypes.string,
-  setUserPosts: PropTypes.func,
+  reloadPosts: PropTypes.func,
 };
 
 export default PostModal;

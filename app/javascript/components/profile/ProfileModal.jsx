@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
-function ProfileModal({ userName='', profile = { avatar: null, bio: null }, setProfile = () => {} }) {
+function ProfileModal({ userName = '', profile = { avatar: null, bio: null }, setProfile = () => {} }) {
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState('');
   const [bio, setBio] = useState(profile.bio);
-  const [preview, setPreview] = useState('')
+  const [preview, setPreview] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ function ProfileModal({ userName='', profile = { avatar: null, bio: null }, setP
       if (avatar) {
         formData.append('profile[avatar]', avatar);
       }
-      const response = await axios.put(`/api/profiles/${userName}`,formData)
+      const response = await axios.put(`/api/profiles/${userName}`, formData);
       setProfile(response.data);
       setShowModal(false);
       alert('プロフィールを更新しました');
@@ -29,7 +29,7 @@ function ProfileModal({ userName='', profile = { avatar: null, bio: null }, setP
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
-    setPreview(URL.createObjectURL(file))
+    setPreview(URL.createObjectURL(file));
   };
 
   const adjustTextareaHeight = () => {
@@ -39,7 +39,7 @@ function ProfileModal({ userName='', profile = { avatar: null, bio: null }, setP
   };
 
   return (
-    <div className='mt-2'>
+    <div className="mt-2">
       <button type="button" className="ml-3 rounded bg-blue-500 p-1 text-xs font-bold text-white hover:bg-blue-700" onClick={() => setShowModal(true)}>
         プロフィール編集
       </button>
@@ -50,14 +50,14 @@ function ProfileModal({ userName='', profile = { avatar: null, bio: null }, setP
             <form className="flex flex-1 flex-col " onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="bio" className="block">自己紹介</label>
-                <textarea id="bio" value={bio} onChange={(e) => {setBio(e.target.value); adjustTextareaHeight();}} className="block w-full rounded-md border border-black p-2 resize-none" />
+                <textarea id="bio" value={bio} onChange={(e) => { e.target.value ? setBio(e.target.value) : setBio(''); adjustTextareaHeight(); }} className="block w-full resize-none rounded-md border border-black p-2" />
               </div>
               <div className="mb-4">
                 <label htmlFor="avatar" className="mt-2 block">アバターを選択:</label>
                 <input id="avatar" type="file" onChange={handleAvatarChange} className="block w-full rounded-md border border-black p-2" />
               </div>
-              <div className='max-w-sm'>
-                {preview && <img src={preview} alt="画像プレビュー" className="object-cover w-36 h-36 rounded-full" />}
+              <div className="max-w-sm">
+                {preview && <img src={preview} alt="画像プレビュー" className="size-36 rounded-full object-cover" />}
               </div>
               <div className="flex justify-end">
                 <button type="submit" className="btn btn-accent">更新</button>
@@ -66,12 +66,20 @@ function ProfileModal({ userName='', profile = { avatar: null, bio: null }, setP
           </div>
         </div>
       )}
-    </div>    
+    </div>
   );
 }
 
 ProfileModal.propTypes = {
   setProfile: PropTypes.func,
+  userName: PropTypes.string,
+  profile: PropTypes.shape({
+    avatar: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alt: PropTypes.string,
+    }),
+    bio: PropTypes.string,
+  }),
 };
 
 export default ProfileModal;

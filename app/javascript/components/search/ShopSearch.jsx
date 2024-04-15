@@ -16,7 +16,6 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
   const [resultMuniArr, setResultMuniArr] = useState([]);
   const [switchSearchButton, setSwitchSearchButton] = useState('condition');
 
-
   const handleSearch = async () => {
     try {
       const response = await axios.get('/api/shops/search', {
@@ -65,7 +64,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
   return (
     <div className="m-4">
       <div className="container mx-auto">
-        <div className="flex mt-4">
+        <div className="mt-4 flex">
           <SearchButton switchSearchButton={switchSearchButton} setSwitchSearchButton={setSwitchSearchButton} />
         </div>
         {switchSearchButton === 'condition' && (
@@ -92,7 +91,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
               </div>
               {searchResults && searchResults.length > 0 ? (
                 <table className="relative border border-black bg-white">
-                  <thead className='text-sm sm:text-base'>
+                  <thead className="text-sm sm:text-base">
                     <tr className="h-10 border border-black bg-slate-300">
                       <th className="w-[200px]">エピソード</th>
                       <th className="w-[200px]">店舗名</th>
@@ -101,13 +100,17 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
                       <th className="w-[140px]">最寄駅</th>
                     </tr>
                   </thead>
-                  <tbody className='text-sm sm:text-base'>
+                  <tbody className="text-sm sm:text-base">
                     {searchResults.map((result) => (
                       <tr key={result.id} className="border-b border-black">
                         <td className="px-2 py-4">
                           {result.stories.map((story) => (
                             <div key={story.id}>
-                              {story.season} {story.ep} <br />
+                              {story.season}
+                              {' '}
+                              {story.ep}
+                              {' '}
+                              <br />
                               {story.title}
                             </div>
                           ))}
@@ -127,20 +130,18 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
           </>
         )}
         {switchSearchButton !== 'condition' && (
-          <div className='flex justify-center items-center mt-4'>
-          <KodoguruMap />
-        </div>
+          <div className="mt-4 flex items-center justify-center">
+            <KodoguruMap />
+          </div>
         )}
       </div>
     </div>
   );
-};
-
+}
 
 ShopSearch.propTypes = {
   arryPrefecture: PropTypes.arrayOf(PropTypes.string),
   arrySeason: PropTypes.arrayOf(PropTypes.string),
-}
-
+};
 
 export default ShopSearch;

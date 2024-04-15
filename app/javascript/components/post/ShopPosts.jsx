@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import PostDeleteItem from './PostDeleteItem';
 import PostUpdateItem from './PostUpdateItem';
 import LikeButton from '../like/LikeButton';
-import axios from 'axios';
 import PostModal from './PostModal';
 import PostBodyModal from './PostBodyModal';
 
-function ShopPosts({ userPosts = [], setUserPosts = () => {}, currentUser= null, shopId=null }) {
+function ShopPosts({
+  userPosts = [], setUserPosts = () => {}, currentUser = null, shopId = null,
+}) {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(`/api/shops/${shopId}`);
@@ -32,22 +34,22 @@ function ShopPosts({ userPosts = [], setUserPosts = () => {}, currentUser= null,
         <div className="text-xl">みんなの投稿</div>
         {currentUser && <PostModal reloadPosts={reloadPosts} shopId={shopId} />}
       </div>
-      {userPosts && userPosts.length > 0 ? (         
+      {userPosts && userPosts.length > 0 ? (
         <div className="mx-2 mt-12 ">
-          <div className='w-full flex'>
-            <div className="flex-auto grid grid-cols-1 sm:grid-cols-3 gap-6 place-items-center">
+          <div className="flex w-full">
+            <div className="grid flex-auto grid-cols-1 place-items-center gap-6 sm:grid-cols-3">
               {userPosts.map((post) => (
-                <div className="card max-w-xs sm:max-w-sm bg-base-100" key={post.id}>
-                  <figure><img src={post.image.url} /></figure>
+                <div className="card max-w-xs bg-base-100 sm:max-w-sm" key={post.id}>
+                  <figure><img src={post.image.url} alt="投稿画像" /></figure>
                   <div className="card-body">
                     <div className="card-title">{post.title}</div>
                     <PostBodyModal post={post} />
-                    <div className='flex'>
-                      <img src={post.user.profile && post.user.profile.avatar.url } alt="Avatar" className="object-cover w-12 h-12 rounded-full" />
-                      <p className='ml-2 flex justify-start items-center'><a href={`/profiles/${post.user.name}`}>{post.user.name}</a></p>
+                    <div className="flex">
+                      <img src={post.user.profile && post.user.profile.avatar.url} alt="Avatar" className="size-12 rounded-full object-cover" />
+                      <p className="ml-2 flex items-center justify-start"><a href={`/profiles/${post.user.name}`}>{post.user.name}</a></p>
                     </div>
                     <p>{(post.created_at).split('T')[0]}</p>
-                    <div className='flex items-center justify-end'>
+                    <div className="flex items-center justify-end">
                       { currentUser && currentUser.id === post.user_id && (
                         <>
                           <div className="mx-4">
@@ -63,7 +65,8 @@ function ShopPosts({ userPosts = [], setUserPosts = () => {}, currentUser= null,
                         <div>
                           <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
                         </div>
-                      )}
+                      )
+}
                     </div>
                   </div>
                 </div>
@@ -71,14 +74,12 @@ function ShopPosts({ userPosts = [], setUserPosts = () => {}, currentUser= null,
             </div>
           </div>
         </div>
-        ) : (
-         <p className='pl-10 pt-5'>投稿はまだありません</p>
-        )
-      }
+      ) : (
+        <p className="pl-10 pt-5">投稿はまだありません</p>
+      )}
     </>
   );
 }
-
 
 ShopPosts.propTypes = {
   userPosts: PropTypes.arrayOf(
@@ -88,12 +89,16 @@ ShopPosts.propTypes = {
       body: PropTypes.string.isRequired,
       user_id: PropTypes.number.isRequired,
       image: PropTypes.shape({
-        url: PropTypes.string.isRequired,
+        url: PropTypes.string,
         alt: PropTypes.string,
-      }).isRequired,
+      }),
     }).isRequired,
   ).isRequired,
   setUserPosts: PropTypes.func,
+  shopId: PropTypes.string,
+  currentUser: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }),
 };
 
 export default ShopPosts;

@@ -5,6 +5,5 @@ import Posts from './components/post/Posts';
 const mountNode = document.getElementById('posts');
 const root = createRoot(mountNode);
 root.render(
-  <Posts />
-)
-
+  <Posts />,
+);

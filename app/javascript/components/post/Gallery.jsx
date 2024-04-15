@@ -17,14 +17,16 @@ function Gallery({ userPosts }) {
         <ImageModal image={selectedImage} onClose={() => setShowModal(false)} />
       )}
       <div className="mb-5 mt-4 text-center text-xl">写真ギャラリー</div>
-      <div className="grid grid-cols-3 gap-4 place-items-center sm:grid-cols-4">
+      <div className="grid grid-cols-3 place-items-center gap-4 sm:grid-cols-4">
         {userPosts.map((post) => (
-          post.image.url.includes('no_image') || 
+          post.image.url.includes('no_image')
+          || (
           <div key={`post_${post.id}`}>
             <div onClick={() => handleImageClick(post.image)}>
-              <img src={post.image.url} alt={`Image ${post.id}`} />
+              <img src={post.image.url} alt="投稿画像" />
             </div>
           </div>
+          )
         ))}
       </div>
     </div>

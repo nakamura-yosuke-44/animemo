@@ -18,14 +18,14 @@ function SearchForm({
   const [isMuniFocus, setIsMuniFocus] = useState(false);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
       <div className="relative">
         <input
           id="seasonInput"
           name="seasonInput"
           type="text"
           readOnly
-          className="pl-2 max-w-36 border border-black"
+          className="max-w-36 border border-black pl-2"
           placeholder="シーズン"
           value={season}
           onClick={() => setIsSessionFocus(true)}
@@ -58,7 +58,7 @@ function SearchForm({
           id="nameInput"
           name="nameInput"
           type="text"
-          className="pl-2 border border-black max-w-36"
+          className="max-w-36 border border-black pl-2"
           placeholder="店舗名"
           value={name}
           onClick={() => setIsNameFocus(true)}
@@ -92,7 +92,7 @@ function SearchForm({
           id="prefectureInput"
           name="prefectureInput"
           type="text"
-          className="pl-2 border border-black max-w-36"
+          className="max-w-36 border border-black pl-2"
           placeholder="都道府県"
           value={prefecture}
           onClick={() => setIsPrefectureFocus(true)}
@@ -125,7 +125,7 @@ function SearchForm({
           id="muniInput"
           name="muniInput"
           type="text"
-          className="pl-2 border border-black max-w-36"
+          className="max-w-36 border border-black pl-2"
           placeholder="市区町村"
           value={municipalities}
           onClick={() => setIsMuniFocus(true)}

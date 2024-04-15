@@ -9,13 +9,13 @@ function MyList() {
     try {
       const response = await axios.get('/api/my_list', {
         params: {
-          status: status
-        }
+          status,
+        },
       });
       setVisitList(response.data);
     } catch (error) {
       console.error('リストの取得に失敗', error);
-      alert('リストを取得できませんでした')
+      alert('リストを取得できませんでした');
     }
   };
 
@@ -29,10 +29,10 @@ function MyList() {
 
   return (
     <>
-      <div className='m-4 pl-4'>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 mx-2 rounded-full" onClick={() => handleStatusChange('want_to')}>行きたい</button>
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 mx-2 rounded-full" onClick={() => handleStatusChange('went')}>行った</button>
-        <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-5 mx-2 rounded-full" onClick={() => handleStatusChange('pending')}>保留</button>
+      <div className="m-4 pl-4">
+        <button type="button" className="mx-2 rounded-full bg-blue-500 px-2 py-1 font-bold text-white hover:bg-blue-700" onClick={() => handleStatusChange('want_to')}>行きたい</button>
+        <button type="button" className="mx-2 rounded-full bg-green-500 px-3 py-1 font-bold text-white hover:bg-green-700" onClick={() => handleStatusChange('went')}>行った</button>
+        <button type="button" className="mx-2 rounded-full bg-orange-500 px-5 py-1 font-bold text-white hover:bg-orange-700" onClick={() => handleStatusChange('pending')}>保留</button>
       </div>
       <div className="container m-6 mx-auto flex justify-center">
         <div className="flex flex-col">
@@ -55,10 +55,10 @@ function MyList() {
                 <tbody>
                   {visitList.map((visit) => (
                     <tr key={visit.id} className="border-b border-black">
-                      <td className="text-center py-2 text-blue-900 hover:underline"><a href={`/shops/${visit.shop.id}`}>{visit.shop.name}</a></td>
-                      <td className="text-center py-2">{visit.shop.prefecture}</td>
-                      <td className="text-center py-2">{visit.shop.municipalities}</td>
-                      <td className="text-center py-2">{visit.shop.station}</td>
+                      <td className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${visit.shop.id}`}>{visit.shop.name}</a></td>
+                      <td className="py-2 text-center">{visit.shop.prefecture}</td>
+                      <td className="py-2 text-center">{visit.shop.municipalities}</td>
+                      <td className="py-2 text-center">{visit.shop.station}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -74,4 +74,3 @@ function MyList() {
 }
 
 export default MyList;
-

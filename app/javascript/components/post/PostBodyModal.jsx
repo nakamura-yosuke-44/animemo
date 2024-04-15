@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 function PostBodyModal({ post = {} }) {
   const [showModal, setShowModal] = useState(false);
-  
+
   return (
     <div>
-      <div className='text-xs text-blue-500' onClick={() => setShowModal(true)}>
+      <div className="text-xs text-blue-500" onClick={() => setShowModal(true)}>
         内容を表示
       </div>
       {showModal && (
@@ -23,6 +23,20 @@ function PostBodyModal({ post = {} }) {
 
 PostBodyModal.propTypes = {
 
+};
+
+PostBodyModal.propTypes = {
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    user_id: PropTypes.number.isRequired,
+    shop_id: PropTypes.number.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string,
+      alt: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default PostBodyModal;
