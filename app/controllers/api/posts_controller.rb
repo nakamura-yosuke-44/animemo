@@ -5,8 +5,8 @@ class Api::PostsController < ApplicationController
   before_action :authorize_user!, only: [:update, :destroy]
 
   def index
-    posts = Post.all.includes(:user, :shop)
-    render json: posts, include: { user: {}, shop: {} }
+    posts = Post.includes(:user, :shop, :likes)
+    render json: posts, include: [:user, :shop, :likes], status: :ok
   end
   
   def create
@@ -15,7 +15,7 @@ class Api::PostsController < ApplicationController
     if post.save
       render json: post, status: :created
     else
-      render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
+      render json: post.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class Api::PostsController < ApplicationController
     if @post.update(post_params)
       render json: { message: '投稿内容を更新しました。' }, status: :ok
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post.errors.full_messages, status: :unprocessable_entity
     end
   end
 

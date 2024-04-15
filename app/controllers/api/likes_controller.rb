@@ -2,7 +2,7 @@ class Api::LikesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    like = current_user.likes.build(post_id: params[:post_id])
+    like = current_user.likes.build(post_id: params[:postId])
     if like.save
       render json: like, status: :created
     else

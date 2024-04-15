@@ -8,5 +8,8 @@ class Api::CurrentUsersController < ApplicationController
         likes: current_user.likes
       }
       render json: user_data
+    else
+      render json: '', status: :ok
+    end
   end
 end

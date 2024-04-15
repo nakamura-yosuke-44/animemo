@@ -1,58 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import CheckCurrentUser from "../../CheckCurrentUser";
+import PostUpdateItem from "./PostUpdateItem";
+import PostDeleteItem from "./PostDeleteItem";
+import LikeButton from "../like/LikeButton";
 
 function Posts() {
   const [posts, setPosts] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
   const fetchPosts = async () => {
     try {
       const response = await axios.get(`/api/posts`);
       const { data } = response;
       const orderPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setPosts(orderPosts);
+      console.log(orderPosts)
     } catch (error) {
-      alert('リクエストエラー');
+      alert('投稿情報を取得できませんでした');
       console.error('投稿情報の取得エラー:', error);
     }
   };
 
-  fetchPosts()
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const reloadPosts= () => {
+    fetchPosts()
+  }
 
   return (
-    <div className="m-4">
-      <div className="container mx-auto">
-        {posts !== null ? (
-          <div className="mx-4 mt-12 flex items-center justify-center">
-            <div>
-              <div className=" border-blackflex flex-col items-center justify-center sm:text-base">
+      <>
+        <CheckCurrentUser setCurrentUser={setCurrentUser} />
+        {posts && posts.length > 0 ? (         
+          <div className="m-4">
+            <div className='w-full flex'>
+              <div className="flex-auto grid grid-cols-1 sm:grid-cols-3 gap-6 place-items-center">
                 {posts.map((post) => (
-                  <div className="card my-4 w-96 bg-base-100 shadow-xl" key={post.id}>
+                  <div className="card max-w-xs sm:max-w-sm bg-base-100" key={post.id}>
                     <figure><img src={post.image.url} /></figure>
                     <div className="card-body">
-                      <a href={`/shops/${post.shop.id}`}>{post.shop.name}</a>
+                      <div className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${post.shop?.id}`}>{post.shop?.name}</a></div>
                       <div className="card-title">{post.title}</div>
                       <p>{post.body}</p>
-                      <p>
-                        by
-                        {' '}
-                        {post.user.name}
-                      </p>
-                      <p>{new Date(post.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                      <div className='flex'>
+                        <p>
+                          投稿者:
+                          {' '}
+                          {post.user.name}
+                        </p>
+                      </div>
+                      <p>{post.created_at}</p>
+                      <div className='flex items-center justify-end'>
+                        { currentUser && currentUser.id === post.user_id && (
+                          <>
+                            <div className="mx-4">
+                              <PostUpdateItem post={post} setUserPosts={setPosts} />
+                            </div>
+                            <div className="mx-4">
+                              <PostDeleteItem post={post} reloadPosts={reloadPosts} />
+                            </div>
+                          </>
+                        )}
+                        {
+                        currentUser && (
+                          <div>
+                            <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-        ) : (
-          <div className="mt-3 flex">
-            <p>確認中</p>
-            {' '}
-            <span className="loading loading-bars loading-md" />
-          </div>
-        )}
-      </div>
-    </div>
-  );
+          ) : (
+           <p>投稿はありません</p>
+          )
+        }
+      </>
+    );
 }
 
 export default Posts;
