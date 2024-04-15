@@ -46,7 +46,7 @@ function Posts() {
                       <PostBodyModal post={post} />
                       <div className='flex'>
                         <img src={post.user.profile && post.user.profile.avatar.url } alt="Avatar" className="object-cover w-12 h-12 rounded-full" />
-                        <p className='ml-2 flex justify-start items-center'>{post.user.name}</p>
+                        <p className='ml-2 flex justify-start items-center'><a href={`/profiles/${post.user.name}`}>{post.user.name}</a></p>
                       </div>
                       <p>{(post.created_at).split('T')[0]}</p>
                       <div className='flex items-center justify-end'>
