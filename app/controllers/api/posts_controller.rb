@@ -28,9 +28,11 @@ class Api::PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    head :no_content
-    nil
+    if @post.destroy
+      render json: { message: '削除しました。' }, status: :ok
+    else
+      render json: @post.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   private

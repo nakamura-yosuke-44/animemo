@@ -48,6 +48,7 @@ function ShopPosts({ userPosts = [], setUserPosts = () => {}, currentUser= null,
                       {post.user.name}
                     </p>
                     </div>
+                    <p>{(post.created_at).split('T')[0]}</p>
                     <div className='flex items-center justify-end'>
                       { currentUser && currentUser.id === post.user_id && (
                         <>
@@ -73,7 +74,7 @@ function ShopPosts({ userPosts = [], setUserPosts = () => {}, currentUser= null,
           </div>
         </div>
         ) : (
-         <p>投稿はありません</p>
+         <p className='pl-10 pt-5'>投稿はまだありません</p>
         )
       }
     </>

@@ -10,13 +10,13 @@ function PostDeleteItem({ post = {}, reloadPosts = () => {} }) {
     const confirmDelete = window.confirm('この投稿を削除してもよろしいですか？');
     if (confirmDelete) {
       axios.delete(`/api/posts/${post.id}`)
-        .then(() => {
-          alert('削除しました');
+        .then((response) => {
+          alert(response.data.message);
           reloadPosts()
         })
         .catch((error) => {
           console.error('Error deleting post:', error);
-          alert('削除できませんでした');
+          alert(error.response.data);
         });
     }
   };
