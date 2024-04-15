@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const VisitSelect = ({ currentUser, shopId }) => {
-  const [initialStatus, setInitialStatus] = useState(null);
+  const [initialStatus, setInitialStatus] = useState('');
   const [status, setStatus] = useState('');
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const VisitSelect = ({ currentUser, shopId }) => {
 
   const fetchStatus = async () => {
     try {
-      const response = await axios.get(`/api/visits/${currentUser}`, {
+      const response = await axios.get(`/api/visits/${currentUser.id}`, {
         params: {
           shop_id: shopId
         }
@@ -27,7 +27,7 @@ const VisitSelect = ({ currentUser, shopId }) => {
     setStatus(newStatus);
 
     try {
-      await axios.put(`/api/visits/${currentUser}`, {
+      await axios.put(`/api/visits/${currentUser.id}`, {
         status: newStatus,
         shop_id: shopId
       });
@@ -40,7 +40,7 @@ const VisitSelect = ({ currentUser, shopId }) => {
 
   return (
 
-    <select value={status || initialStatus} onChange={handleStatusChange}>
+    <select value={status || initialStatus } onChange={handleStatusChange}>
       <option value="">選択してください</option>
       <option value="went">行った</option>
       <option value="want_to">行きたい</option>

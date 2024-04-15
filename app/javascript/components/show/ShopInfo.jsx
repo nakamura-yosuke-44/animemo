@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import UserPosts from '../post/UserPosts';
+import ShopPosts from '../post/ShopPosts';
 import Gallery from '../post/Gallery';
 import VisitSelect from '../visit/VisitSelect';
 import CheckCurrentUser from '../../CheckCurrentUser';
@@ -28,9 +28,10 @@ function ShopInfo({ shopId = '' }) {
       console.error('店舗情報の取得エラー:', error);
     }
   };
+
   useEffect(() => {
     fetchShop();
-  }, [shopId]);
+  }, []);
 
   return (
     <>
@@ -120,11 +121,11 @@ function ShopInfo({ shopId = '' }) {
                   </div>
                 </div>
               </div>
-              <div className="mt-10 mx-auto max-w-screen-lg"> {/* 中央揃えと最大幅指定 */}
-                <UserPosts userPosts={userPosts} setUserPosts={setUserPosts} shopId={shopId} />
-              </div>
               <div className="mt-10">
                 <Gallery userPosts={userPosts} />
+              </div>
+              <div className="mt-10 mx-auto max-w-screen-lg">
+                <ShopPosts userPosts={userPosts} setUserPosts={setUserPosts} shopId={shopId} currentUser={currentUser}  />
               </div>
             </>
           ) : (
