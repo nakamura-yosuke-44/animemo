@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'current_user', to: 'current_users#show'
     get 'my_list', to: 'my_pages#my_list'
     resources :posts
+    resources :comments, only: %i[index create destroy]
 
     get '/profiles/:user_name', to: 'profiles#show', as: 'profile'
     put '/profiles/:user_name', to: 'profiles#update'
