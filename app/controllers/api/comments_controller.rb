@@ -5,7 +5,7 @@ class Api::CommentsController < ApplicationController
   before_action :authorize_user!, only: [:destroy]
 
   def index
-    comments = Comment.includes({ user: { profile: {} } }).where(post_id: params[:postId])
+    comments = Comment.includes({ user: { profile: {} } }).where(post_id: params[:postId], parent_id: nil)
     render json: comments, include: {
       user: { include: :profile },
     }, status: :ok
@@ -44,6 +44,6 @@ class Api::CommentsController < ApplicationController
   end
 
   def authorize_user!
-    render json: { error: '権限がありません。' }, status: :forbidden unless @comment.user == current_user
+    render json: { error: '権限がありません。' }, status: :forbidden unless @comment.user_id == current_user.id
   end
 end
