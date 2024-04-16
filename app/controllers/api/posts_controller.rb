@@ -54,6 +54,6 @@ class Api::PostsController < ApplicationController
   end
 
   def authorize_user!
-    render json: { error: '権限がありません。' }, status: :forbidden unless @post.user == current_user
+    render json: { error: '権限がありません。' }, status: :forbidden unless @post.user_id == current_user.id
   end
 end

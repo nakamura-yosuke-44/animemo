@@ -6,6 +6,7 @@ import PostUpdateItem from './PostUpdateItem';
 import PostDeleteItem from './PostDeleteItem';
 import LikeButton from '../like/LikeButton';
 import PostBodyModal from './PostBodyModal';
+import IndexComments from '../comment/IndexComments';
 
 function UserPosts({ userName = '' }) {
   const [posts, setPosts] = useState(null);
@@ -71,6 +72,7 @@ function UserPosts({ userName = '' }) {
                             </div>
                           )
                         }
+                        {<IndexComments post={post} />}
                       </div>
                     </div>
                   </div>

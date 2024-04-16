@@ -5,6 +5,7 @@ import PostUpdateItem from './PostUpdateItem';
 import PostDeleteItem from './PostDeleteItem';
 import LikeButton from '../like/LikeButton';
 import PostBodyModal from './PostBodyModal';
+import IndexComments from '../comment/IndexComments';
 
 function Posts() {
   const [posts, setPosts] = useState(null);
@@ -15,7 +16,6 @@ function Posts() {
       const { data } = response;
       const orderPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setPosts(orderPosts);
-      console.log(orderPosts);
     } catch (error) {
       alert('投稿情報を取得できませんでした');
       console.error('投稿情報の取得エラー:', error);
@@ -66,7 +66,8 @@ function Posts() {
                             <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
                           </div>
                         )
-}
+                      }
+                      {<IndexComments post={post} />}
                     </div>
                   </div>
                 </div>

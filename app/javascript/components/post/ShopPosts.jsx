@@ -6,6 +6,7 @@ import PostUpdateItem from './PostUpdateItem';
 import LikeButton from '../like/LikeButton';
 import PostModal from './PostModal';
 import PostBodyModal from './PostBodyModal';
+import IndexComments from '../comment/IndexComments';
 
 function ShopPosts({
   userPosts = [], setUserPosts = () => {}, currentUser = null, shopId = null,
@@ -66,7 +67,8 @@ function ShopPosts({
                           <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
                         </div>
                       )
-}
+                      }
+                      {<IndexComments post={post} />}
                     </div>
                   </div>
                 </div>

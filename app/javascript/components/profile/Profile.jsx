@@ -33,7 +33,7 @@ function Profile({ userName = '' }) {
               <img src={profile && profile.avatar?.url} alt="Avatar" className="size-36 rounded-full object-cover" />
             </div>
             <div className="min-w-80">
-              <div className="items-cente flex-1">
+              <div className="flex-1">
                 <p>名前</p>
                 <p className="w-full rounded-md border border-black bg-white pl-2">{userName}</p>
               </div>
