@@ -15,7 +15,7 @@ function DeleteComment({comment={}, reloadComments = () => {}}) {
         })
         .catch((error) => {
           console.error('Error deleting comment:', error);
-          alert(error.response.data.error);
+          alert(error.response.data);
         });
     }
   }

@@ -23,7 +23,8 @@ function LikeButton({ post = null, currentUser = null, reloadPosts = () => {} })
       setLiked(!liked);
       reloadPosts();
     } catch (error) {
-      console.error('Error toggling like:', error);
+      console.error('Error handle like:', error);
+      alert('更新に失敗しました。')
     }
   };
 

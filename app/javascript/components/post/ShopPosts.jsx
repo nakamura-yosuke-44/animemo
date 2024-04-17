@@ -9,7 +9,7 @@ import PostBodyModal from './PostBodyModal';
 import IndexComments from '../comment/IndexComments';
 
 function ShopPosts({
-  userPosts = [], setUserPosts = () => {}, currentUser = null, shopId = null,
+  userPosts = [], setUserPosts = () => {}, currentUser = {}, shopId = null,
 }) {
   const fetchPosts = async () => {
     try {
@@ -98,9 +98,6 @@ ShopPosts.propTypes = {
   ).isRequired,
   setUserPosts: PropTypes.func,
   shopId: PropTypes.string,
-  currentUser: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }),
 };
 
 export default ShopPosts;

@@ -28,13 +28,14 @@ function VisitSelect({ currentUser, shopId }) {
     setStatus(newStatus);
 
     try {
-      await axios.put(`/api/visits/${currentUser.id}`, {
+      const response = await axios.put(`/api/visits/${currentUser.id}`, {
         status: newStatus,
         shop_id: shopId,
       });
-      alert('更新しました');
+      alert(response.data.message);
     } catch (error) {
       alert('更新に失敗しました');
+      console.error('Error fetching status', error);
     }
   };
 

@@ -14,8 +14,8 @@ function MyList() {
       });
       setVisitList(response.data);
     } catch (error) {
-      console.error('リストの取得に失敗', error);
-      alert('リストを取得できませんでした');
+      console.error('Error fetching visitlist:', error);
+      alert('リスト情報を取得できませんでした');
     }
   };
 

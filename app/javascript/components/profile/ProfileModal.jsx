@@ -17,11 +17,12 @@ function ProfileModal({ userName = '', profile = { avatar: null, bio: null }, se
         formData.append('profile[avatar]', avatar);
       }
       const response = await axios.put(`/api/profiles/${userName}`, formData);
-      setProfile(response.data);
+      console.log(response)
+      setProfile(response.data.profile);
+      alert(response.data.message);
       setShowModal(false);
-      alert('プロフィールを更新しました');
     } catch (error) {
-      console.error('エラー:', error);
+      console.error('Error update profile:', error);
       alert(error.response.data);
     }
   };

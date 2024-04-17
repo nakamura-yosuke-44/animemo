@@ -13,7 +13,7 @@ function Profile({ userName = '' }) {
   const fetchProfile = async () => {
     try {
       const res = await axios.get(`/api/profiles/${userName}`);
-      setProfile(res.data.profile);
+      setProfile(res.data);
     } catch (error) {
       alert('プロフィールはありません');
       console.error('Error fetching profile:', error);
@@ -45,14 +45,15 @@ function Profile({ userName = '' }) {
               <div className="mt-4">
                 <p>自己紹介</p>
                 <p className="min-h-48 rounded-md border border-black bg-white pl-2">
-                  {profile && profile.bio ? profile.bio : ''}
+                  {profile && profile.bio ? profile.bio : ' '}
                 </p>
               </div>
               <div className="flex items-center justify-end">
-                {currentUser && (currentUser.id === profile?.user_id)
-                    && <ProfileModal userName={userName} setProfile={setProfile} profile={profile} />}
+                {currentUser && (currentUser.id === profile?.user_id) &&
+                  <ProfileModal userName={userName} setProfile={setProfile} profile={profile} />
+                }
               </div>
-              {currentUser &&
+              {currentUser && (currentUser.id !== profile?.user_id) &&
                 <FollowButton userName={userName} profile={profile} currentUser={currentUser} reloadProfile={reloadprofile} />
               }
             </div>

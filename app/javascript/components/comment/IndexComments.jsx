@@ -26,7 +26,7 @@ function IndexComments({post={}}) {
       const orderComments = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setComments(orderComments);
     } catch (error) {
-      console.error('エラー:', error);
+      console.error('Error fetching comments:', error);
       alert(error.response.data);
     }
   };

@@ -19,7 +19,7 @@ function IndexReplies({comment={}}) {
       const { data } = response;
       setReplies(data);
     } catch (error) {
-      console.error('エラー:', error);
+      console.error('Error fetching replies:', error);
       alert(error.response.data);
     }
   };

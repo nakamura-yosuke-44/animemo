@@ -22,15 +22,16 @@ function PostModal({ shopId = '', reloadPosts = () => {} }) {
         formData.append('post[image]', image);
       }
 
-      await axios.post('/api/posts', formData);
+      const response = await axios.post('/api/posts', formData);
+      alert(response.data.message);
       reloadPosts();
       setShowModal(false);
-      alert('投稿しました');
       setTitle('');
       setBody('');
       setImage('');
+      setPreview('')
     } catch (error) {
-      console.error('エラー:', error);
+      console.error('Error post:', error);
       alert(error.response.data);
     }
   };

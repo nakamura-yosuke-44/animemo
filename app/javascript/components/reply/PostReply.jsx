@@ -17,14 +17,14 @@ function PostReply({comment={}, reloadReplies = () => {}}) {
       formData.append('reply[post_id]', comment.post_id);
       formData.append('reply[parent_id]', comment.id);
       formData.append('reply[body]', body);
-      await axios.post(`/api/comments/${comment.id}/replies`, formData);
+      const response = await axios.post(`/api/comments/${comment.id}/replies`, formData);
       reloadReplies();
+      alert(response.data.message);
       setShowModal(false);
-      alert('リプライしました');
       setBody('');
     } catch (error) {
-      console.error('エラー:', error);
-      alert(error.response.data.error);
+      console.error('Error posting reply:', error);
+      alert(error.response.data);
     }
   };
 

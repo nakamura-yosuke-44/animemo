@@ -1,5 +1,6 @@
 class Api::VisitsController < ApplicationController
-  protect_from_forgery with: :null_session
+  skip_before_action :authenticate_user!
+  before_action :check_authenticate_user!, only: [:update]
 
   def show
     visit = Visit.find_by(user_id: params[:user_id], shop_id: params[:shop_id])
@@ -11,13 +12,19 @@ class Api::VisitsController < ApplicationController
   end
 
   def update
-    visit = Visit.find_or_initialize_by(user_id: params[:user_id], shop_id: params[:shop_id])
+    visit = current_user.visits.find_or_initialize_by(user_id: params[:user_id], shop_id: params[:shop_id])
     visit.status = params[:status]
 
     if visit.save
-      render json: { status: 'ステータスを更新しました' }
+      render json: { message: 'ステータスを更新しました' }, status: :ok
     else
-      render json: { error: 'Failed to update status' }, status: :unprocessable_entity
+      render json: visit.errors.full_messages , status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def check_authenticate_user!
+    render json: 'ログインしてください' , status: :unauthorized unless current_user
   end
 end

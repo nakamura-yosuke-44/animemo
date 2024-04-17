@@ -1,15 +1,17 @@
 class Api::ProfilesController < ApplicationController
-  skip_before_action :authenticate_user! # deviseのメソッドをスキップ
-  before_action :set_profile, only: [:update, :show]
-  before_action :authorize_user!, only: [:update]
+  skip_before_action :authenticate_user!
+  before_action :check_authenticate_user!, only: [:update]
+  before_action :set_profile, only: [:update]
+  
 
   def show
-    render json: { profile: @profile, user_name: params[:user_name] }, status: :ok
+    profile = User.includes(:profile).find_by(name: params[:user_name]).profile
+    render json: profile, status: :ok
   end
 
   def update
     if @profile.update(profile_params)
-      render json: @profile, status: :ok
+      render json: { message: '更新しました。', profile: @profile }, status: :ok
     else
       render json: @profile.errors.full_messages, status: :unprocessable_entity
     end
@@ -23,16 +25,19 @@ class Api::ProfilesController < ApplicationController
 
   private
 
-  def set_profile
-    @user = User.includes(:profile).find_by(name: params[:user_name])
-    @profile = @user.profile
-  end
-
   def profile_params
     params.require(:profile).permit(:avatar, :bio)
   end
 
   def authorize_user!
-    render json: { error: '権限がありません。' }, status: :forbidden unless @profile.user_id == current_user.id
+    render json: '権限がありません。', status: :forbidden unless @profile.user_id == current_user.id
+  end
+
+  def check_authenticate_user!
+    render json: 'ログインしてください' , status: :unauthorized unless current_user
+  end
+
+  def set_profile
+    @profile = current_user.profile
   end
 end

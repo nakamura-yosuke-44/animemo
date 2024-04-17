@@ -29,7 +29,7 @@ class Api::ShopsController < ApplicationController
         stories: {}
       }, status: :ok
     else
-      render json: { error: '店舗が見つかりませんでした' }, status: :not_found
+      render json: '店舗が見つかりませんでした', status: :not_found
     end
   end
 

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
-  has_many :uvisits
-  has_many :shops, through: :viisits
+  has_many :visits
+  has_many :shops, through: :visits
 
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :posts

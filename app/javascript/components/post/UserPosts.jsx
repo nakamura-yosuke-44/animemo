@@ -17,10 +17,9 @@ function UserPosts({ userName = '' }) {
       const { data } = response;
       const orderPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setPosts(orderPosts);
-      console.log(orderPosts);
     } catch (error) {
       alert('投稿情報を取得できませんでした');
-      console.error('投稿情報の取得エラー:', error);
+      console.error('Error fetching userposts:', error);
     }
   };
 

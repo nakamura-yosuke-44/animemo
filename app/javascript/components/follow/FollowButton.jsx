@@ -14,16 +14,17 @@ function FollowButton({ userName=null, currentUser=null, reloadProfile= () => {}
   const handleFollow = async () => {
     try {
       if (follow) {
-        await axios.delete(`/api/profiles/${userName}/relationships`);
-        alert('フォローを解除しました')
+        const response = await axios.delete(`/api/profiles/${userName}/relationships`);
+        alert(response.data.message)
       } else {
-        await axios.post(`/api/profiles/${userName}/relationships`);
-        alert('フォローしました')
+        const response = await axios.post(`/api/profiles/${userName}/relationships`);
+        alert(response.data.message)
       }
       setFollow(!follow);
       reloadProfile();
     } catch (error) {
       console.error('Error following user:', error);
+      alert(error.response.data);
     } 
   };
 

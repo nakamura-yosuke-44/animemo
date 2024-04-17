@@ -16,14 +16,14 @@ function PostComment({post={}, reloadComments = () => {}}) {
       const formData = new FormData();
       formData.append('comment[post_id]', post.id);
       formData.append('comment[body]', body);
-      await axios.post('/api/comments', formData);
+      const response = await axios.post('/api/comments', formData);
+      alert(response.data.message);
       reloadComments();
       setShowModal(false);
-      alert('コメントしました');
       setBody('');
     } catch (error) {
-      console.error('エラー:', error);
-      alert(error.response.data.error);
+      console.error('Error posting comment:', error);
+      alert(error.response.data);
     }
   };
 

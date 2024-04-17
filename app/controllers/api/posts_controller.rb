@@ -1,8 +1,7 @@
 class Api::PostsController < ApplicationController
-  skip_before_action :authenticate_user! # deviseのメソッドをスキップ
+  skip_before_action :authenticate_user!
   before_action :check_authenticate_user!, except: [:index]
   before_action :set_post, only: [:update, :destroy]
-  before_action :authorize_user!, only: [:update, :destroy]
 
   def index
     posts = Post.includes({ user: { profile: {} } }, :shop, :likes)
@@ -17,7 +16,7 @@ class Api::PostsController < ApplicationController
     post = current_user.posts.build(post_params)
 
     if post.save
-      render json: post, status: :created
+      render json: { message: '投稿しました。' }, status: :ok
     else
       render json: post.errors.full_messages, status: :unprocessable_entity
     end
@@ -25,7 +24,7 @@ class Api::PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      render json: { message: '投稿内容を更新しました。' }, status: :ok
+      render json: { message: '更新しました。' }, status: :ok
     else
       render json: @post.errors.full_messages, status: :unprocessable_entity
     end
@@ -46,14 +45,10 @@ class Api::PostsController < ApplicationController
   end
 
   def check_authenticate_user!
-    render json: { error: 'ログインしてください' }, status: :unauthorized unless current_user
+    render json: 'ログインしてください' , status: :unauthorized unless current_user
   end
 
   def set_post
-    @post = Post.find(params[:id])
-  end
-
-  def authorize_user!
-    render json: { error: '権限がありません。' }, status: :forbidden unless @post.user_id == current_user.id
+    @post = current_user.posts.find(params[:id])
   end
 end
