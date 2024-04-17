@@ -1,23 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-
-function IndexFollowings() {
-  const [followings, setFollowings] = useState(null)
-
-  const fetchFollowings = async() => {
-    try{
-      const response = await axios.get(`/api/follow/followings`);
-      setFollowings(response.data)
-    } catch(error) {
-      console.error('エラー:', error);
-    }
-  }
-
-  useEffect(() => {
-    fetchFollowings();
-  }, []);
-
+function IndexFollowings({followings = []}) {
   return (
     <div className="m-4">
       <div>

@@ -1,23 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-
-function IndexFollowers() {
-  const [followers, setFollowers] = useState(null)
-
-  const fetchFollowers = async() => {
-    try{
-      const response = await axios.get(`/api/follow/followers`);
-      setFollowers(response.data)
-    } catch(error) {
-      console.error('エラー:', error);
-    }
-  }
-
-  useEffect(() => {
-    fetchFollowers();
-  }, []);
-
+function IndexFollowers({followers = [], followings= []}) {  
   return (
     <div className="m-4">
       <div>
@@ -36,8 +19,10 @@ function IndexFollowers() {
                     <p className="w-full pl-2"><a href={`/profiles/${follower.name}`}>{follower.name}</a></p>
                   </div>
                 </div>
-              </div>
-                
+              </div>  
+              {(followings.some((follow) => follow.id === follower.id)) &&
+                <p className='text-xs'>フォロー中</p>
+              }    
             </div>
           ))
         ) : (

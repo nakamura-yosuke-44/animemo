@@ -1,10 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import IndexFollowings from "./IndexFollowings";
 import IndexFollowers from "./IndexFollowers";
 
-
 function Follow() {
   const [switchFollow, setSwitchFollow] = useState('following')
+  const [followings, setFollowings] = useState(null)
+  const [followers, setFollowers] = useState(null)
+
+  const fetchFollowings = async() => {
+    try{
+      const response = await axios.get(`/api/follow/followings`);
+      setFollowings(response.data)
+    } catch(error) {
+      console.error('エラー:', error);
+    }
+  }
+
+  const fetchFollowers = async() => {
+    try{
+      const response = await axios.get(`/api/follow/followers`);
+      setFollowers(response.data)
+    } catch(error) {
+      console.error('エラー:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchFollowings();
+    fetchFollowers();
+  }, []);
+
   return (
     <div className="m-4 flex flex-col">
       <div className="container mx-auto">
@@ -26,9 +52,9 @@ function Follow() {
       </div>
       <div className=" flex justify-center items-center mt-3">
         {switchFollow === 'following' ? (
-          <IndexFollowings />
+          <IndexFollowings followings={followings} />
         ) : (
-          <IndexFollowers />
+          <IndexFollowers followers={followers} followings={followings} />
         )}
       </div>
       </div>
