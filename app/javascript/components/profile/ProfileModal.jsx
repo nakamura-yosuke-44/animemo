@@ -17,11 +17,12 @@ function ProfileModal({ userName = '', profile = { avatar: null, bio: null }, se
         formData.append('profile[avatar]', avatar);
       }
       const response = await axios.put(`/api/profiles/${userName}`, formData);
-      setProfile(response.data);
+      console.log(response);
+      setProfile(response.data.profile);
+      alert(response.data.message);
       setShowModal(false);
-      alert('プロフィールを更新しました');
     } catch (error) {
-      console.error('エラー:', error);
+      console.error('Error update profile:', error);
       alert(error.response.data);
     }
   };
@@ -50,7 +51,7 @@ function ProfileModal({ userName = '', profile = { avatar: null, bio: null }, se
             <form className="flex flex-1 flex-col " onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="bio" className="block">自己紹介</label>
-                <textarea id="bio" value={bio} onChange={(e) => { e.target.value ? setBio(e.target.value) : setBio(''); adjustTextareaHeight(); }} className="block w-full resize-none rounded-md border border-black p-2" />
+                <textarea id="bio" defaultValue={bio || ''} onChange={(e) => { setBio(e.target.value); adjustTextareaHeight(); }} className="block w-full resize-none rounded-md border border-black p-2" />
               </div>
               <div className="mb-4">
                 <label htmlFor="avatar" className="mt-2 block">アバターを選択:</label>

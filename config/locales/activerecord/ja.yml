@@ -3,13 +3,42 @@ ja:
     models:
       shop: 店舗
       post: 投稿
+      comment: コメント
+      profile: プロフィール
+      story: ストーリー
+      visit: 訪問
     attributes:
       post:
         title: タイトル
         body: 本文
         images: 写真
-
-
+      shop:
+        name: 名前
+        kana: かな
+        food: 登場料理
+        map: 地図
+        map_iflame: 埋め込み地図
+        prefecture: 都道府県
+        municipalities: 市区町村
+        street_address: 番地
+        station: 最寄駅
+        transportation: 交通手段
+        phone_number: 電話番号
+        hp: ホームページ
+        tabelog_url: 食べログURL
+        latitude: 緯度
+        longitude: 経度
+      comment:
+        body: 本文
+      profile:
+        avatar: アバター
+        bio: 自己紹介
+      story:
+        season: シーズン
+        ep: エピソード
+        title: タイトル
+      visit:
+       status: ステータス
   errors:
     messages:
       carrierwave_processing_error: 処理できませんでした

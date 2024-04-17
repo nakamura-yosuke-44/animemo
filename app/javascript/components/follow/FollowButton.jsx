@@ -1,56 +1,50 @@
-// FollowButton.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-function FollowButton({ user, currentUser, reloadUser }) {
-  const [loading, setLoading] = useState(false);
+axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+function FollowButton({ userName = null, currentUser = null, reloadProfile = () => {} }) {
+  const [follow, setFollow] = useState(false);
+  useEffect(() => {
+    if (currentUser && currentUser.followings) {
+      setFollow(currentUser.followings.some((follow) => follow.name === userName));
+    }
+  }, []);
 
   const handleFollow = async () => {
-    setLoading(true);
     try {
-      if (!currentUser || !currentUser.following || !user || !user.id) {
-        console.error('Error: currentUser.following or user.id is undefined');
-        return;
+      if (follow) {
+        const response = await axios.delete(`/api/profiles/${userName}/relationships`);
+        alert(response.data.message);
+      } else {
+        const response = await axios.post(`/api/profiles/${userName}/relationships`);
+        alert(response.data.message);
       }
-
-      await axios.post('/relationships', { followed_id: user.id });
-      reloadUser(); // ユーザー情報の再読み込み
+      setFollow(!follow);
+      reloadProfile();
     } catch (error) {
       console.error('Error following user:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleUnfollow = async () => {
-    setLoading(true);
-    try {
-      if (!currentUser || !currentUser.following || !user || !user.relationship_id) {
-        console.error('Error: currentUser.following or user.relationship_id is undefined');
-        return;
-      }
-
-      await axios.delete(`/relationships/${user.relationship_id}`);
-      reloadUser(); // ユーザー情報の再読み込み
-    } catch (error) {
-      console.error('Error unfollowing user:', error);
-    } finally {
-      setLoading(false);
+      alert(error.response.data);
     }
   };
 
   return (
-    <div>
-      <button
-        disabled={loading}
-        onClick={currentUser && currentUser.following && user && user.id
-          ? (currentUser.following.includes(user.id) ? handleUnfollow : handleFollow) : null}
-      >
-        {loading ? 'Loading...' : (currentUser && currentUser.following && user && user.id
-          ? (currentUser.following.includes(user.id) ? 'Unfollow' : 'Follow') : 'Loading...')}
-      </button>
+    <div className="mt-3 flex items-center">
+      {follow
+        ? <button type="button" className="btn btn-primary btn-sm" onClick={handleFollow}>フォロー中</button>
+        : <button type="button" className="btn btn-sm" onClick={handleFollow}>フォロー</button>}
     </div>
   );
 }
+
+FollowButton.propTypes = {
+  userName: PropTypes.string,
+  reloadProfile: PropTypes.func,
+  currentUser: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  }),
+};
 
 export default FollowButton;

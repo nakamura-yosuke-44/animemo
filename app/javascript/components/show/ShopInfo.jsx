@@ -15,7 +15,6 @@ function ShopInfo({ shopId = '' }) {
     try {
       const response = await axios.get(`/api/shops/${shopId}`);
       const { data } = response;
-      console.log(data);
       setShop(data);
       const orderPosts = data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setUserPosts(orderPosts);
@@ -25,8 +24,8 @@ function ShopInfo({ shopId = '' }) {
         setIflame(mapIflame[1]);
       }
     } catch (error) {
-      alert('リクエストエラー');
-      console.error('店舗情報の取得エラー:', error);
+      alert(error.response.data);
+      console.error('Error fetching shop:', error);
     }
   };
 

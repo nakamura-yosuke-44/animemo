@@ -23,14 +23,14 @@ function PostUpdateItem({ post = null, setUserPosts = () => {} }) {
         formData.append('post[image]', image);
       }
 
-      await axios.put(`/api/posts/${post.id}`, formData);
+      const res = await axios.put(`/api/posts/${post.id}`, formData);
       const response = await axios.get(`/api/shops/${post.shop_id}`);
       const orderPosts = response.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      alert(res.data.message);
       setUserPosts(orderPosts);
       setShowModal(false);
-      alert('更新しました');
     } catch (error) {
-      console.error('エラー:', error);
+      console.error('Error update Post:', error);
       alert(error.response.data);
     }
   };

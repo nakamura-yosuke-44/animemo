@@ -1,22 +1,21 @@
 class Api::RepliesController < ApplicationController
-  skip_before_action :authenticate_user! # deviseのメソッドをスキップ
+  skip_before_action :authenticate_user!
   before_action :check_authenticate_user!, except: [:index]
   before_action :set_reply, only: [:destroy]
-  before_action :authorize_user!, only: [:destroy]
 
   def index
     replies = Comment.includes({ user: { profile: {} } }).where(parent_id: params[:comment_id])
     render json: replies, include: {
-      user: { include: :profile },
+      user: { include: :profile }
     }, status: :ok
   end
-  
+
   def create
     reply = current_user.comments.new(reply_params)
     if reply.save
-      render json: reply, status: :created
+      render json: { message: 'リプライしました。' }, status: :created
     else
-      render json: { error: reply.errors.full_messages }, status: :unprocessable_entity
+      render json: reply.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -24,7 +23,7 @@ class Api::RepliesController < ApplicationController
     if @reply.destroy
       render json: { message: '削除しました。' }, status: :ok
     else
-      render json: { error: @reply.errors.full_messages }, status: :unprocessable_entity
+      render json: @reply.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -35,14 +34,10 @@ class Api::RepliesController < ApplicationController
   end
 
   def check_authenticate_user!
-    render json: { error: 'ログインしてください' }, status: :unauthorized unless current_user
+    render json: 'ログインしてください', status: :unauthorized unless current_user
   end
 
   def set_reply
-    @reply = Comment.find_by(id: params[:replyId])
-  end
-
-  def authorize_user!
-    render json: { error: '権限がありません。' }, status: :forbidden unless @reply.user_id == current_user.id
+    @reply = current_user.comments.find_by(id: params[:replyId])
   end
 end

@@ -18,7 +18,7 @@ function Posts() {
       setPosts(orderPosts);
     } catch (error) {
       alert('投稿情報を取得できませんでした');
-      console.error('投稿情報の取得エラー:', error);
+      console.error('Error fetching posts :', error);
     }
   };
 
@@ -67,7 +67,7 @@ function Posts() {
                           </div>
                         )
                       }
-                      {<IndexComments post={post} />}
+                      <IndexComments post={post} />
                     </div>
                   </div>
                 </div>
