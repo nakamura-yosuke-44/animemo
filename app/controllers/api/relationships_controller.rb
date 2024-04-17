@@ -1,28 +1,29 @@
 class Api::RelationshipsController < ApplicationController
   before_action :authenticate_user!
 
-  # フォローするとき
   def create
-    current_user.follow(params[:user_id])
-    render json: { message: 'Followed successfully' }, status: :ok
+    if current_user.follow(params[:user_name])
+      render json: { message: 'フォローしました。' }, status: :ok
+    else
+      render json:  { error: 'フォローできませんでした' }, status: :unprocessable_entity
+    end
   end
 
-  # フォロー外すとき
   def destroy
-    current_user.unfollow(params[:user_id])
-    render json: { message: 'Unfollowed successfully' }, status: :ok
+    if current_user.unfollow(params[:user_name])
+      render json: { message: 'フォロー解除しました。' }, status: :ok
+    else
+      render json:  { error: 'フォロー解除できませんでした' }, status: :unprocessable_entity
+    end
   end
 
   def followings
-    user = User.find(params[:user_id])
-    @users = user.followed_users
-    render json: @users, status: :ok
+    following = current_user.followings.includes(:profile)
+    render json: following, include: :profile, status: :ok
   end
-
-  # フォロワー一覧
+  
   def followers
-    user = User.find(params[:user_id])
-    @users = user.followers
-    render json: @users, status: :ok
+    followers  = current_user.followers.includes(:profile)
+    render json: followers, include: :profile, status: :ok
   end
 end

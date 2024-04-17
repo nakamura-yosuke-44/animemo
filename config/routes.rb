@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'relationships/followings'
-  get 'relationships/followers'
   root "top#top"
   resources :shops, only: %i[index show]
   resources :posts, only: %i[index]
@@ -14,9 +12,15 @@ Rails.application.routes.draw do
     end
 
 
-    get '/profiles/:user_name', to: 'profiles#show', as: 'profile'
-    put '/profiles/:user_name', to: 'profiles#update'
+    resources :profiles, param: :user_name, only: [:show, :update]
     get '/profiles/:user_name/posts', to: 'profiles#user_posts'
+
+    post '/profiles/:user_name/relationships', to: 'relationships#create'
+    delete '/profiles/:user_name/relationships', to: 'relationships#destroy'
+    get '/follow/followings', to: 'relationships#followings'
+    get '/follow/followers', to: 'relationships#followers'
+    
+
 
     resources :likes, only: [:create, :destroy]
     resources :shops, only: %i[index show] do
@@ -26,7 +30,6 @@ Rails.application.routes.draw do
       end
     end
     resource :current_user, only: %i[show]
-    resources :relationships, only: [:create, :destroy]
     resources :visits, only: %i[show update], param: :user_id
   end
 
@@ -43,6 +46,8 @@ Rails.application.routes.draw do
   get 'my_list', to: 'my_pages#my_list'
 
   get 'profiles/:user_name', to: 'profiles#show', as: :user_profile
+
+  get '/follow', to: 'relationships#show'
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

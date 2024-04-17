@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ProfileModal from './ProfileModal';
 import CheckCurrentUser from '../../CheckCurrentUser';
 import UserPosts from '../post/UserPosts';
+import FollowButton from '../follow/FollowButton';
 
 function Profile({ userName = '' }) {
   const [profile, setProfile] = useState(null);
@@ -22,6 +23,10 @@ function Profile({ userName = '' }) {
   useEffect(() => {
     fetchProfile();
   }, []);
+
+  const reloadprofile = () => {
+    fetchProfile();
+  };
 
   return (
     <>
@@ -47,6 +52,9 @@ function Profile({ userName = '' }) {
                 {currentUser && (currentUser.id === profile?.user_id)
                     && <ProfileModal userName={userName} setProfile={setProfile} profile={profile} />}
               </div>
+              {currentUser &&
+                <FollowButton userName={userName} profile={profile} currentUser={currentUser} reloadProfile={reloadprofile} />
+              }
             </div>
           </div>
           <UserPosts userName={userName} />
