@@ -11,7 +11,6 @@ Rails.application.routes.draw do
       get '/replies', to: 'replies#index'
     end
 
-
     resources :profiles, param: :user_name, only: [:show, :update]
     get '/profiles/:user_name/posts', to: 'profiles#user_posts'
 
@@ -19,8 +18,6 @@ Rails.application.routes.draw do
     delete '/profiles/:user_name/relationships', to: 'relationships#destroy'
     get '/follow/followings', to: 'relationships#followings'
     get '/follow/followers', to: 'relationships#followers'
-    
-
 
     resources :likes, only: [:create, :destroy]
     resources :shops, only: %i[index show] do

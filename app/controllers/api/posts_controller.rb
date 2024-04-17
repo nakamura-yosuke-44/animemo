@@ -45,7 +45,7 @@ class Api::PostsController < ApplicationController
   end
 
   def check_authenticate_user!
-    render json: 'ログインしてください' , status: :unauthorized unless current_user
+    render json: 'ログインしてください', status: :unauthorized unless current_user
   end
 
   def set_post

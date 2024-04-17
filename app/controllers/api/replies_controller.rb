@@ -6,10 +6,10 @@ class Api::RepliesController < ApplicationController
   def index
     replies = Comment.includes({ user: { profile: {} } }).where(parent_id: params[:comment_id])
     render json: replies, include: {
-      user: { include: :profile },
+      user: { include: :profile }
     }, status: :ok
   end
-  
+
   def create
     reply = current_user.comments.new(reply_params)
     if reply.save

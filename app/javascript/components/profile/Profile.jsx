@@ -49,13 +49,11 @@ function Profile({ userName = '' }) {
                 </p>
               </div>
               <div className="flex items-center justify-end">
-                {currentUser && (currentUser.id === profile?.user_id) &&
-                  <ProfileModal userName={userName} setProfile={setProfile} profile={profile} />
-                }
+                {currentUser && (currentUser.id === profile?.user_id)
+                  && <ProfileModal userName={userName} setProfile={setProfile} profile={profile} />}
               </div>
-              {currentUser && (currentUser.id !== profile?.user_id) &&
-                <FollowButton userName={userName} profile={profile} currentUser={currentUser} reloadProfile={reloadprofile} />
-              }
+              {currentUser && (currentUser.id !== profile?.user_id)
+                && <FollowButton userName={userName} profile={profile} currentUser={currentUser} reloadProfile={reloadprofile} />}
             </div>
           </div>
           <UserPosts userName={userName} />

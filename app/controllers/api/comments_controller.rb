@@ -6,11 +6,10 @@ class Api::CommentsController < ApplicationController
   def index
     comments = Comment.includes({ user: { profile: {} } }).where(post_id: params[:postId], parent_id: nil)
     render json: comments, include: {
-      user: { include: :profile },
+      user: { include: :profile }
     }, status: :ok
   end
-  
-  
+
   def create
     comment = current_user.comments.new(comment_params)
     if comment.save

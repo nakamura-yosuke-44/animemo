@@ -29,7 +29,7 @@ function PostModal({ shopId = '', reloadPosts = () => {} }) {
       setTitle('');
       setBody('');
       setImage('');
-      setPreview('')
+      setPreview('');
     } catch (error) {
       console.error('Error post:', error);
       alert(error.response.data);

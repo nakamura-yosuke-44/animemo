@@ -68,7 +68,7 @@ function ShopPosts({
                         </div>
                       )
                       }
-                      {<IndexComments post={post} />}
+                      <IndexComments post={post} />
                     </div>
                   </div>
                 </div>

@@ -18,13 +18,13 @@ class Api::VisitsController < ApplicationController
     if visit.save
       render json: { message: 'ステータスを更新しました' }, status: :ok
     else
-      render json: visit.errors.full_messages , status: :unprocessable_entity
+      render json: visit.errors.full_messages, status: :unprocessable_entity
     end
   end
 
   private
 
   def check_authenticate_user!
-    render json: 'ログインしてください' , status: :unauthorized unless current_user
+    render json: 'ログインしてください', status: :unauthorized unless current_user
   end
 end

@@ -40,7 +40,7 @@ function ShopSearch({ arryPrefecture = [], arrySeason = [] }) {
       setResultMuniArr(resultUniqueMuni);
     } catch (error) {
       console.error('Error searching:', error);
-      alert('検索に失敗しました。')
+      alert('検索に失敗しました。');
     }
   };
 

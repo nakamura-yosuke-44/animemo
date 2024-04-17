@@ -24,7 +24,7 @@ function LikeButton({ post = null, currentUser = null, reloadPosts = () => {} })
       reloadPosts();
     } catch (error) {
       console.error('Error handle like:', error);
-      alert('更新に失敗しました。')
+      alert('更新に失敗しました。');
     }
   };
 

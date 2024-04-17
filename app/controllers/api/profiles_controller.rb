@@ -2,7 +2,6 @@ class Api::ProfilesController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :check_authenticate_user!, only: [:update]
   before_action :set_profile, only: [:update]
-  
 
   def show
     profile = User.includes(:profile).find_by(name: params[:user_name]).profile
@@ -34,7 +33,7 @@ class Api::ProfilesController < ApplicationController
   end
 
   def check_authenticate_user!
-    render json: 'ログインしてください' , status: :unauthorized unless current_user
+    render json: 'ログインしてください', status: :unauthorized unless current_user
   end
 
   def set_profile

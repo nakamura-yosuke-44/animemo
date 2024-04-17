@@ -7,12 +7,12 @@ axios.defaults.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf
 
 function DeleteReply({ reply = {}, reloadReplies = () => {} }) {
   const handleDelete = async () => {
-    const confirmDelete = window.confirm("コメントを削除してもよろしいですか？");
+    const confirmDelete = window.confirm('コメントを削除してもよろしいですか？');
     if (confirmDelete) {
-      axios.delete(`/api/comments/${reply.parent_id}/replies`,{
+      axios.delete(`/api/comments/${reply.parent_id}/replies`, {
         params: {
-          replyId: reply.id
-        }
+          replyId: reply.id,
+        },
       })
         .then((response) => {
           alert(response.data.message);
@@ -23,11 +23,22 @@ function DeleteReply({ reply = {}, reloadReplies = () => {} }) {
           alert(error.response.data);
         });
     }
-  }
+  };
 
   return (
     <AiFillDelete onClick={handleDelete} />
   );
 }
+
+DeleteReply.propTypes = {
+  reply: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    body: PropTypes.string,
+    user_id: PropTypes.number.isRequired,
+    post_id: PropTypes.number.isRequired,
+    parent_id: PropTypes.number.isRequired,
+  }),
+  reloadReplies: PropTypes.func,
+};
 
 export default DeleteReply;

@@ -22,9 +22,9 @@ class Api::RelationshipsController < ApplicationController
     following = current_user.followings.includes(:profile)
     render json: following, include: :profile, status: :ok
   end
-  
+
   def followers
-    followers  = current_user.followers.includes(:profile)
+    followers = current_user.followers.includes(:profile)
     render json: followers, include: :profile, status: :ok
   end
 

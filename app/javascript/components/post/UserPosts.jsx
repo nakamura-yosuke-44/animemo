@@ -71,7 +71,7 @@ function UserPosts({ userName = '' }) {
                             </div>
                           )
                         }
-                        {<IndexComments post={post} />}
+                        <IndexComments post={post} />
                       </div>
                     </div>
                   </div>

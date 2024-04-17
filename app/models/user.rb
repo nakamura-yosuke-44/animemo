@@ -30,7 +30,6 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
-
   validates :name, presence: true
   validates :agreement_terms, acceptance: { accept: true, on: :create }
   # Include default devise modules. Others available are:
