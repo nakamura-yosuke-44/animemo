@@ -1,44 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CheckCurrentUser from '../../CheckCurrentUser';
-import PostUpdateItem from './PostUpdateItem';
-import PostDeleteItem from './PostDeleteItem';
+import PostUpdateItem from '../post/PostUpdateItem';
+import PostDeleteItem from '../post/PostDeleteItem';
 import LikeButton from '../like/LikeButton';
-import PostBodyModal from './PostBodyModal';
+import PostBodyModal from '../post/PostBodyModal';
 import IndexComments from '../comment/IndexComments';
 
-function Posts() {
-  const [posts, setPosts] = useState(null);
+function FollowPosts() {
+  const [followPosts, setFollowPosts] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const fetchPosts = async () => {
+  const fetchFollowPosts = async () => {
     try {
-      const response = await axios.get('/api/posts');
+      const response = await axios.get('/api/follow_posts');
       const { data } = response;
       const orderPosts = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-      setPosts(orderPosts);
+      setFollowPosts(orderPosts);
     } catch (error) {
       alert('投稿情報を取得できませんでした');
-      console.error('Error fetching posts :', error);
+      console.error('Error fetching followposts :', error);
     }
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchFollowPosts();
   }, []);
 
-  const reloadPosts = () => {
-    fetchPosts();
+  const reloadFollowPosts = () => {
+    fetchFollowPosts();
   };
 
   return (
     <>
       <CheckCurrentUser setCurrentUser={setCurrentUser} />
-      {posts && posts.length > 0 ? (
+      {followPosts && followPosts.length > 0 ? (
         <div className="mx-auto mb-3 mt-10 max-w-screen-lg">
           <div className="mx-2 mt-12 ">
             <div className="flex w-full">
               <div className="grid flex-auto grid-cols-1 place-items-center gap-6 sm:grid-cols-3">
-                {posts.map((post) => (
+                {followPosts.map((post) => (
                   <div className="card max-w-xs bg-base-100 sm:max-w-sm" key={post.id}>
                     <figure><img src={post.image.url} alt="投稿画像" /></figure>
                     <div className="card-body">
@@ -54,17 +54,17 @@ function Posts() {
                         {currentUser && currentUser.id === post.user_id && (
                         <>
                           <div className="mx-4">
-                            <PostUpdateItem post={post} setUserPosts={setPosts} />
+                            <PostUpdateItem post={post} setUserPosts={setFollowPosts} />
                           </div>
                           <div className="mx-4">
-                            <PostDeleteItem post={post} reloadPosts={reloadPosts} />
+                            <PostDeleteItem post={post} reloadPosts={reloadFollowPosts} />
                           </div>
                         </>
                         )}
                         {
                         currentUser && (
                           <div>
-                            <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
+                            <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadFollowPosts} />
                           </div>
                         )
                       }
@@ -84,4 +84,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default FollowPosts;
