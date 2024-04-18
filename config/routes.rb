@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get '/follow/followings', to: 'relationships#followings'
     get '/follow/followers', to: 'relationships#followers'
 
+    get '/notifications', to: 'notifications#unchecked_notifications'
+
     resources :likes, only: [:create, :destroy]
     resources :shops, only: %i[index show] do
       collection do
@@ -45,6 +47,8 @@ Rails.application.routes.draw do
   get 'profiles/:user_name', to: 'profiles#show', as: :user_profile
 
   get '/follow', to: 'relationships#show'
+
+  resources :notifications, only: %i[index]
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

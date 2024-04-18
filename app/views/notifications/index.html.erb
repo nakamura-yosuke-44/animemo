@@ -1,0 +1,15 @@
+<% content_for :title, "通知" %>
+<div class="flex-1">
+  <div class="m-4">
+    <div class="container mx-auto">
+      <% notifications = @notifications.where.not(visitor_id: current_user.id) %>
+      <% if notifications.exists? %>
+        <%= render notifications %>
+      <% else %>
+        <p>
+          | 通知はありません
+        <p>
+      <% end %>
+    </div>
+  </div>
+</div>

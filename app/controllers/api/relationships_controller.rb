@@ -3,7 +3,9 @@ class Api::RelationshipsController < ApplicationController
   before_action :check_authenticate_user!
 
   def create
-    if current_user.follow(params[:user_name])
+    @user = User.find_by(name: params[:user_name])
+    if current_user.follow(@user.id)
+      @user.create_notification_follow!(current_user)
       render json: { message: 'フォローしました。' }, status: :ok
     else
       render json: 'フォローできませんでした', status: :unprocessable_entity

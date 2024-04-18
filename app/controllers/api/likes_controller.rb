@@ -5,6 +5,9 @@ class Api::LikesController < ApplicationController
   def create
     like = current_user.likes.build(post_id: params[:postId])
     if like.save
+      post = Post.find(params[:postId])
+      post.create_notification_like!(current_user)
+
       render json: { message: 'いいねしました。' }, status: :ok
     else
       render json: like.errors.full_messages, status: :unprocessable_entity
