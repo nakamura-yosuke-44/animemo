@@ -42,7 +42,7 @@ function UserPosts({ userName = '' }) {
             {posts.length}
             件
           </p>
-          <div className="mx-auto mt-10 mb-3 max-w-screen-lg">
+          <div className="mx-auto mb-3 mt-10 max-w-screen-lg">
             <div className="mx-2 mt-12 ">
               <div className="flex w-full">
                 <div className="grid flex-auto grid-cols-1 place-items-center gap-6 sm:grid-cols-3">
