@@ -1,0 +1,31 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+<div class="mx-auto m-6 flex flex-col justify-center items-center ">
+  <div class="w-full max-w-md">
+    <span>
+      <%= link_to user_profile_path(user_name: visitor.name) do %>
+        <strong>
+          <%= visitor.name %>
+        </strong>
+      <% end %>
+      さんが
+    </span>
+    <% case notification.action %>
+    <% when 'follow' %>
+      <%= "あなたをフォローしました" %>
+    <% when 'like' %>
+      <%= link_to 'あなたの投稿', shop_path(notification.post.shop_id), style: "font-weight: bold;" %>
+      <%= "にいいねしました" %>
+    <% when 'comment' %>
+      <%= link_to "あなたの投稿", shop_path(notification.post.shop_id), style: "font-weight: bold;" %>
+      <%= "にコメントしました" %>
+    <% when 'reply' %>
+      <%= link_to "あなたのコメント", shop_path(notification.comment.post.shop_id), style: "font-weight: bold;" %>
+      <%= "にリプライしました" %>
+    <% end %>
+    <div class="text-xs">
+      <%= time_ago_in_words(notification.created_at).upcase + '前' %>
+    </div>
+  </div>
+  <hr>
+</div>

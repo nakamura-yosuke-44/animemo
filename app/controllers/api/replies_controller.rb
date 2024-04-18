@@ -12,7 +12,9 @@ class Api::RepliesController < ApplicationController
 
   def create
     reply = current_user.comments.new(reply_params)
+    comment = Comment.find(params[:reply][:parent_id])
     if reply.save
+      comment.create_notification_reply!(current_user, reply.id)
       render json: { message: 'リプライしました。' }, status: :created
     else
       render json: reply.errors.full_messages, status: :unprocessable_entity

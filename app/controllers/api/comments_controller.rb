@@ -12,7 +12,9 @@ class Api::CommentsController < ApplicationController
 
   def create
     comment = current_user.comments.new(comment_params)
+    post = comment.post
     if comment.save
+      post.create_notification_comment!(current_user, comment.id)
       render json: { message: 'コメントしました。' }, status: :created
     else
       render json: comment.errors.full_messages, status: :unprocessable_entity
