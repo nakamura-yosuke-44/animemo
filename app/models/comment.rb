@@ -16,13 +16,11 @@ class Comment < ApplicationRecord
   def save_notification_reply!(current_user, reply_id, visited_id)
     notification = current_user.active_notifications.new(
       comment_id: id,
-      reply_id: reply_id,
-      visited_id: visited_id,
+      reply_id:,
+      visited_id:,
       action: 'reply'
     )
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
+    notification.checked = true if notification.visitor_id == notification.visited_id
     notification.save if notification.valid?
   end
 end
