@@ -42,40 +42,42 @@ function UserPosts({ userName = '' }) {
             {posts.length}
             件
           </p>
-          <div className="m-4">
-            <div className="flex w-full">
-              <div className="grid flex-auto grid-cols-1 place-items-center gap-6 sm:grid-cols-3">
-                {posts.map((post) => (
-                  <div className="card max-w-xs bg-base-100 sm:max-w-sm" key={post.id}>
-                    <figure><img src={post.image.url} alt="投稿写真" /></figure>
-                    <div className="card-body">
-                      <div className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${post.shop?.id}`}>{post.shop?.name}</a></div>
-                      <div className="card-title">{post.title}</div>
-                      <PostBodyModal post={post} />
-                      <p>{(post.created_at).split('T')[0]}</p>
-                      <div className="flex items-center justify-end">
-                        { currentUser && currentUser.id === post.user_id && (
-                          <>
-                            <div className="mx-4">
-                              <PostUpdateItem post={post} setUserPosts={setPosts} />
-                            </div>
-                            <div className="mx-4">
-                              <PostDeleteItem post={post} reloadPosts={reloadPosts} />
-                            </div>
-                          </>
-                        )}
-                        {
-                          currentUser && (
-                            <div>
-                              <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
-                            </div>
-                          )
-                        }
-                        <IndexComments post={post} />
+          <div className="mx-auto mt-10 mb-3 max-w-screen-lg">
+            <div className="mx-2 mt-12 ">
+              <div className="flex w-full">
+                <div className="grid flex-auto grid-cols-1 place-items-center gap-6 sm:grid-cols-3">
+                  {posts.map((post) => (
+                    <div className="card max-w-xs bg-base-100 sm:max-w-sm" key={post.id}>
+                      <figure><img src={post.image.url} alt="投稿写真" /></figure>
+                      <div className="card-body">
+                        <div className="py-2 text-center text-blue-900 hover:underline"><a href={`/shops/${post.shop?.id}`}>{post.shop?.name}</a></div>
+                        <div className="card-title">{post.title}</div>
+                        <PostBodyModal post={post} />
+                        <p>{(post.created_at).split('T')[0]}</p>
+                        <div className="flex items-center justify-end">
+                          { currentUser && currentUser.id === post.user_id && (
+                            <>
+                              <div className="mx-4">
+                                <PostUpdateItem post={post} setUserPosts={setPosts} />
+                              </div>
+                              <div className="mx-4">
+                                <PostDeleteItem post={post} reloadPosts={reloadPosts} />
+                              </div>
+                            </>
+                          )}
+                          {
+                            currentUser && (
+                              <div>
+                                <LikeButton post={post} currentUser={currentUser} reloadPosts={reloadPosts} />
+                              </div>
+                            )
+                          }
+                          <IndexComments post={post} />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>

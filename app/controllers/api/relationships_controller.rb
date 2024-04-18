@@ -30,6 +30,16 @@ class Api::RelationshipsController < ApplicationController
     render json: followers, include: :profile, status: :ok
   end
 
+  def follow_posts
+    following_user_ids = current_user.followings.pluck(:id)
+    follow_posts = Post.includes({ user: { profile: {} } }, :shop, :likes).where(user_id: following_user_ids)
+    render json: follow_posts, include: {
+      user: { include: :profile },
+      shop: {},
+      likes: {}
+    }, status: :ok
+  end
+
   private
 
   def check_authenticate_user!

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     delete '/profiles/:user_name/relationships', to: 'relationships#destroy'
     get '/follow/followings', to: 'relationships#followings'
     get '/follow/followers', to: 'relationships#followers'
+    get '/follow_posts', to: 'relationships#follow_posts'
 
     get '/notifications', to: 'notifications#unchecked_notifications'
 
@@ -47,6 +48,8 @@ Rails.application.routes.draw do
   get 'profiles/:user_name', to: 'profiles#show', as: :user_profile
 
   get '/follow', to: 'relationships#show'
+
+  get '/follow_posts', to: 'relationships#follow_posts'
 
   resources :notifications, only: %i[index]
 
