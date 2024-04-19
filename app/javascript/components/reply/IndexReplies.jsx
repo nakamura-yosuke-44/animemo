@@ -53,19 +53,19 @@ function IndexReplies({ comment = {} }) {
               {replies && replies.length > 0 ? (
                 replies.map((reply) => (
                   <div key={reply.id}>
-                    <div className="flex min-w-96 justify-start p-1">
-                      <div className="flex justify-center">
+                    <div className="flex min-w-68 justify-start p-1">
+                      <div className="flex justify-center min-w-12">
                         <img src={reply.user && reply.user.profile.avatar?.url} alt="Avatar" className="size-12 rounded-full object-cover" />
                       </div>
-                      <div className="min-w-72">
+                      <div className="min-w-68">
                         <div className="flex-1">
                           <p className="w-full pl-2"><a href={`/profiles/${reply.user.name}`}>{reply.user.name}</a></p>
                           {currentUser.id === reply.user_id ? (
-                            <p className="max-w-72 rounded-md  bg-yellow-300 pl-2">
+                            <p className="max-w-68 rounded-md  bg-yellow-300 pl-2">
                               {reply.body}
                             </p>
                           ) : (
-                            <p className="max-w-72 rounded-md  bg-green-300 pl-2">
+                            <p className="max-w-68 rounded-md  bg-green-300 pl-2">
                               {reply.body}
                             </p>
                           )}

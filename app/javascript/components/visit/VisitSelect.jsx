@@ -40,7 +40,6 @@ function VisitSelect({ currentUser, shopId }) {
   };
 
   return (
-
     <select value={status || initialStatus} onChange={handleStatusChange}>
       <option value="">選択してください</option>
       <option value="went">行った</option>
