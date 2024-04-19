@@ -95,18 +95,26 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  config.action_mailer.perform_deliveries = true
-  config.action_view.preload_links_header = false
-  config.action_mailer.default_url_options = { protocol: 'https', host: Settings.host}
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.perform_deliveries = true
+  #config.action_view.preload_links_header = false
+  #config.action_mailer.default_url_options = { protocol: 'https', host: Settings.host}
+  #config.action_mailer.raise_delivery_errors = true
+  #config.action_mailer.delivery_method = :smtp
+  
+  mailertogo_host     = ENV["MAILERTOGO_SMTP_HOST"]
+  mailertogo_port     = ENV["MAILERTOGO_SMTP_PORT", 587]
+  mailertogo_user     = ENV["MAILERTOGO_SMTP_USER"]
+  mailertogo_password = ENV["MAILERTOGO_SMTP_PASSWORD"]
+  mailertogo_domain   = ENV["MAILERTOGO_DOMAIN"]
+  
+  
   config.action_mailer.smtp_settings = {
-    port: 587,
-    address: 'smtp.gmail.com',
-    domain: 'smtp.gmail.com',
-    user_name: ENV['EMAIL'], 
-    password: ENV['APP_PASSWORD'], 
-    authentication: 'plain',
-    enable_starttls_auto: true
+    :address              => mailertogo_host,
+    :port                 => mailertogo_port,
+    :user_name            => mailertogo_user,
+    :password             => mailertogo_password,
+    :domain               => mailertogo_domain,
+    :authentication       => :plain,
+    :enable_starttls_auto => true,
   }
 end
