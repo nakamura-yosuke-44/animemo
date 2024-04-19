@@ -59,14 +59,14 @@ function IndexComments({ post = {} }) {
               {comments && comments.length > 0 ? (
                 comments.map((comment) => (
                   <div key={comment.id}>
-                    <div className="flex min-w-68 justify-start p-1">
+                    <div className="flex max-w-72 justify-start p-1">
                       <div className="flex justify-center min-w-12">
                         <img src={comment.user && comment.user.profile.avatar?.url} alt="Avatar" className="size-12 rounded-full object-cover" />
                       </div>
-                      <div className="min-w-68">
+                      <div className="min-w-72">
                         <div className="flex-1">
                           <p className="w-full pl-2"><a href={`/profiles/${comment.user.name}`}>{comment.user.name}</a></p>
-                          <p className="max-w-68 rounded-md border border-black pl-2">
+                          <p className="min-w-72 rounded-md border border-black pl-2">
                             {comment.body}
                           </p>
                         </div>
