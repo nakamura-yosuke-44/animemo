@@ -102,7 +102,7 @@ Rails.application.configure do
   #config.action_mailer.delivery_method = :smtp
   
   mailertogo_host     = ENV["MAILERTOGO_SMTP_HOST"]
-  mailertogo_port     = ENV["MAILERTOGO_SMTP_PORT", 587]
+  mailertogo_port     = ENV["MAILERTOGO_SMTP_PORT"]
   mailertogo_user     = ENV["MAILERTOGO_SMTP_USER"]
   mailertogo_password = ENV["MAILERTOGO_SMTP_PASSWORD"]
   mailertogo_domain   = ENV["MAILERTOGO_DOMAIN"]
