@@ -8,12 +8,12 @@
       </div>
       <div class="drawer-side z-50">
         <label for="m-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
-        <ul class="menu p-4 w-80 min-h-full bg-[#d4dcd6]">
+        <ul class="menu p-4 min-h-full bg-[#d4dcd6]">
           <li><%= link_to "アカウント作成", new_user_registration_path %></li>
           <li><%= link_to "ログイン", new_user_session_path %></li>
           <li><%= link_to "店舗検索", shops_path %></li>
-          <li><%= link_to("みんなの新着投稿", posts_path) %></li>
-          <li><%= link_to("機能について", '#') %></li>
+          <li><%= link_to "みんなの新着投稿", posts_path %></li>
+          <li><%= link_to "機能について", features_path %></li>
         </ul>
       </div>
     </div>

@@ -10,12 +10,13 @@
         <label for="m-drawer" aria-label="close sidebar" class="drawer-overlay"></label> 
         <ul class="menu min-h-full bg-[#d4dcd6]">
           <li><%= link_to "店舗検索", shops_path %></li>
-          <li><%= link_to("みんなの新着投稿", posts_path) %></li>
-          <li><%= link_to("フォロー新着投稿", follow_posts_path) %></li>
-          <li><%= link_to("フォロー一覧", follow_path) %></li>
-          <li><%= link_to("マイプロフィール", user_profile_path(current_user.name)) %></li>
+          <li><%= link_to "みんなの新着投稿", posts_path %></li>
+          <li><%= link_to "フォロー新着投稿", follow_posts_path %></li>
+          <li><%= link_to "フォロー一覧", follow_path %></li>
+          <li><%= link_to "マイプロフィール", user_profile_path(current_user.name) %></li>
           <li><%= link_to "マイリスト", my_list_path%></li>
-          <li><%= link_to("機能について", '#') %></li>
+          <li><%= link_to "ユーザー情報", edit_user_registration_path %></li>
+          <li><%= link_to "機能について", features_path %></li>
         </ul>
       </div>
     </div>

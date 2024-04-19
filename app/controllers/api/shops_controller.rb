@@ -36,7 +36,7 @@ class Api::ShopsController < ApplicationController
   def nearest
     user_location = [params[:latitude].to_f, params[:longitude].to_f]
 
-    nearest_shop = Shop.near(user_location, 30).first # 10は検索する範囲（半径）を示します
+    nearest_shop = Shop.near(user_location, 10).first # 10は検索する範囲（半径）を示します
     render json: nearest_shop
   end
 end

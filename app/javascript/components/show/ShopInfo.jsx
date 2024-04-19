@@ -40,7 +40,12 @@ function ShopInfo({ shopId = '' }) {
         <div className="container mx-auto">
           { shop !== null ? (
             <>
-              {currentUser && <VisitSelect shopId={shopId} currentUser={currentUser} />}
+              {currentUser && 
+                <>
+                  <span>マイリスト：</span>
+                  <VisitSelect shopId={shopId} currentUser={currentUser} />
+                </>
+              }
               <div className="text-sm sm:text-base">
                 <div className="mt-4 flex w-full">
                   <div className="flex w-full max-sm:flex-1 max-sm:flex-col">

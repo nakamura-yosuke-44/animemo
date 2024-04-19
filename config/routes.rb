@@ -8,19 +8,19 @@ Rails.application.routes.draw do
     resources :posts
     resources :comments, only: %i[index create destroy] do
       resource :replies, only: %i[index create destroy], controller: 'replies'
-      get '/replies', to: 'replies#index'
+      get 'replies', to: 'replies#index'
     end
 
     resources :profiles, param: :user_name, only: [:show, :update]
-    get '/profiles/:user_name/posts', to: 'profiles#user_posts'
+    get 'profiles/:user_name/posts', to: 'profiles#user_posts'
 
-    post '/profiles/:user_name/relationships', to: 'relationships#create'
-    delete '/profiles/:user_name/relationships', to: 'relationships#destroy'
-    get '/follow/followings', to: 'relationships#followings'
-    get '/follow/followers', to: 'relationships#followers'
-    get '/follow_posts', to: 'relationships#follow_posts'
+    post 'profiles/:user_name/relationships', to: 'relationships#create'
+    delete 'profiles/:user_name/relationships', to: 'relationships#destroy'
+    get 'follow/followings', to: 'relationships#followings'
+    get 'follow/followers', to: 'relationships#followers'
+    get 'follow_posts', to: 'relationships#follow_posts'
 
-    get '/notifications', to: 'notifications#unchecked_notifications'
+    get 'notifications', to: 'notifications#unchecked_notifications'
 
     resources :likes, only: [:create, :destroy]
     resources :shops, only: %i[index show] do
@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
   get 'privacy_policy', to: 'top#privacy_policy'
   get 'terms_of_use', to: 'top#terms_of_use'
+  get 'features', to: 'top#features'
 
   get "up", to: "rails/health#show", as: :rails_health_check
 
@@ -47,9 +48,9 @@ Rails.application.routes.draw do
 
   get 'profiles/:user_name', to: 'profiles#show', as: :user_profile
 
-  get '/follow', to: 'relationships#show'
+  get 'follow', to: 'relationships#show'
 
-  get '/follow_posts', to: 'relationships#follow_posts'
+  get 'follow_posts', to: 'relationships#follow_posts'
 
   resources :notifications, only: %i[index]
 
