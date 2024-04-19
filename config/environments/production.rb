@@ -95,11 +95,11 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  #config.action_mailer.perform_deliveries = true
-  #config.action_view.preload_links_header = false
-  #config.action_mailer.default_url_options = { protocol: 'https', host: Settings.host}
-  #config.action_mailer.raise_delivery_errors = true
-  #config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_view.preload_links_header = false
+  config.action_mailer.default_url_options = { protocol: 'https', ENV["MAILERTOGO_SMTP_HOST"]}
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
   
   mailertogo_host     = ENV["MAILERTOGO_SMTP_HOST"]
   mailertogo_port     = ENV["MAILERTOGO_SMTP_PORT"]
