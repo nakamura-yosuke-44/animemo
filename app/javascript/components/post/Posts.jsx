@@ -78,7 +78,7 @@ function Posts() {
           </div>
         </div>
       ) : (
-        <p>投稿はありません</p>
+        <p className="pl-10 pt-5">投稿はありません</p>
       )}
     </>
   );
