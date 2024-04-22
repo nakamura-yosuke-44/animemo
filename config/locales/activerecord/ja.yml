@@ -7,6 +7,7 @@ ja:
       profile: プロフィール
       story: ストーリー
       visit: 訪問
+      contact: 問い合わせ
     attributes:
       post:
         title: タイトル
@@ -39,6 +40,9 @@ ja:
         title: タイトル
       visit:
        status: ステータス
+      contact:
+        name: 名前
+        content: 内容
   errors:
     messages:
       carrierwave_processing_error: 処理できませんでした
