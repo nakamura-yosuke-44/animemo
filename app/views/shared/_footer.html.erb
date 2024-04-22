@@ -4,7 +4,7 @@
     |
     <%= link_to 'プライバシーポリシー', privacy_policy_path, class: 'hover:text-gray-500', target: :_blank %>
     |
-    <%= link_to 'お問い合わせ', "#", class: 'hover:text-gray-500', target: :_blank %>
+    <%= link_to 'お問い合わせ', new_contact_path( user_id: current_user&.id ), class: 'hover:text-gray-500', target: :_blank %>
     |
     <%= link_to 'X', 'https://twitter.com/kodoguru_search', class: 'hover:text-gray-500', target: :_blank %>
   </aside>

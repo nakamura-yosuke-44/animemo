@@ -1,0 +1,9 @@
+<% if object.errors.any? %>
+  <div id="error_explanation" data-turbo-cache="false" class="bg-red-500 pr-2">
+    <ul class="list-disc list-inside ml-2">
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

@@ -1,4 +1,9 @@
 ja:
+  contacts:
+    new:
+      title: お問い合わせ
+      send: 送信
+      back: 戻る
   time:
     formats:
       default: "%Y/%m/%d %H:%M"
