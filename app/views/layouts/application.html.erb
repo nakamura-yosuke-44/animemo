@@ -3,11 +3,11 @@
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "こどぐるサーチ" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "all" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true, type: "module" %>
+    <%= display_meta_tags(default_meta_tags) %>
   </head>
 
   <body class="flex flex-col min-h-screen">

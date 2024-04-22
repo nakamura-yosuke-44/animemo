@@ -214,6 +214,8 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    meta-tags (2.21.0)
+      actionpack (>= 6.0.0, < 7.2)
     method_source (1.0.0)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
@@ -451,6 +453,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   letter_opener_web (~> 2.0)
+  meta-tags
   mini_magick (~> 4.12)
   omniauth-rails_csrf_protection (~> 1.0, >= 1.0.1)
   omniauth-twitter (~> 1.4)

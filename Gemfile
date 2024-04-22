@@ -91,3 +91,4 @@ gem 'mini_magick', '~> 4.12'
 gem 'geocoder', '~> 1.8', '>= 1.8.2'
 gem 'fog-aws'
 gem "aws-sdk-s3", require: false 
+gem "meta-tags"
