@@ -56,5 +56,7 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:new, :create]
 
+  get '/sitemap', to: redirect("#{ENV['SITEMAPS_HOST']}/sitemaps/sitemap.xml.gz")
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
