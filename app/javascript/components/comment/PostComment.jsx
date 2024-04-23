@@ -43,7 +43,7 @@ function PostComment({ post = {}, reloadComments = () => {} }) {
           </button>
           {showModal && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="relative flex max-h-full w-96 max-w-sm flex-col rounded-lg border-4 bg-white p-8">
+              <div className="relative flex max-h-full w-96 max-w-sm flex-col rounded-lg border-4 bg-white p-8 overflow-y-scroll">
                 <button type="button" className="btn btn-circle btn-sm absolute right-0 top-0 mr-2 mt-2" onClick={() => setShowModal(false)}>✕</button>
                 <form className="flex flex-1 flex-col " onSubmit={handleSubmit}>
                   <div className="mb-4">

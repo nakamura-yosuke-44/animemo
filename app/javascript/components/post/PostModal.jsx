@@ -55,7 +55,7 @@ function PostModal({ shopId = '', reloadPosts = () => {} }) {
       </button>
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative flex max-h-full max-w-sm flex-col rounded-lg bg-white p-8">
+          <div className="relative flex h-full max-w-sm flex-col rounded-lg bg-white p-8 overflow-y-scroll">
             <button type="button" className="btn btn-circle btn-sm absolute right-0 top-0 mr-2 mt-2" onClick={() => setShowModal(false)}>✕</button>
             <form className="flex flex-1 flex-col " onSubmit={handleSubmit}>
               <div className="mb-4">
