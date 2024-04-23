@@ -91,7 +91,7 @@ function ShopInfo({ shopId = '' }) {
                       </div>
                     </div>
                     <div className="flex-1 max-sm:mt-2 ">
-                      <iframe title="Google Maps" src={iflame} style={{ width: '100%', height: '100%', border: '0' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                      <iframe title="Google Maps" src={iflame} style={{ width: '100%', height: '300px', border: '0' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
                     </div>
                   </div>
                 </div>
