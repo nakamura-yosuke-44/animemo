@@ -40,15 +40,15 @@ function Profile({ userName = '' }) {
             <div className="min-w-80">
               <div className="flex-1">
                 <p>名前</p>
-                <p className="w-full rounded-md border border-black bg-white pl-2">{userName}</p>
+                <p className="w-full max-w-80 rounded-md border border-black bg-white pl-2">{userName}</p>
               </div>
               <div className="mt-4">
                 <p>自己紹介</p>
-                <p className="min-h-48 rounded-md border border-black bg-white pl-2">
+                <p className="min-h-48 max-w-80  rounded-md border border-black bg-white pl-2">
                   {profile && profile.bio ? profile.bio : ' '}
                 </p>
               </div>
-              <div className="flex items-center justify-end">
+              <div className="flex items-center justify-end pr-8">
                 {currentUser && (currentUser.id === profile?.user_id)
                   && <ProfileModal userName={userName} setProfile={setProfile} profile={profile} />}
               </div>
