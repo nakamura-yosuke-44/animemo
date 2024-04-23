@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :posts, dependent: :destroy
-  has_many :visits
+  has_many :visits, dependent: :destroy
   has_many :shops, through: :visits
 
   has_many :likes, dependent: :destroy
@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   after_create :create_profile
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
